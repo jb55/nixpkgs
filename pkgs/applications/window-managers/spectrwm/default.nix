@@ -39,7 +39,10 @@ stdenv.mkDerivation rec {
 
   doCheck = false;
 
-  preBuild = "cd linux";
+  preBuild = ''
+    cd linux
+    makeFlags="PREFIX=$out"
+  '';
   installPhase = "PREFIX=$out make install";
 
   meta = with stdenv.lib; {
