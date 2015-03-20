@@ -37,11 +37,7 @@ stdenv.mkDerivation rec {
     xcbutilwm
   ];
 
-# postPatch = ''
-#   patchShebangs .
-# '';
-
-  doCheck = false;#stdenv.system == "x86_64-linux";
+  doCheck = false;
 
   preBuild = "cd linux";
   installPhase = "PREFIX=$out make install";
