@@ -1,4 +1,4 @@
-{ fetchFromGitHub
+{ fetchurl
 , coreutils
 , libX11
 , libXrandr
@@ -17,11 +17,9 @@ stdenv.mkDerivation rec {
   name = "spectrwm-${version}";
   version = "2.6.2";
 
-  src = fetchFromGitHub {
-    rev = "46020d87811d1d3ec05035cd44db5fcd7c2bcd2b";
-    owner = "conformal";
-    repo = "spectrwm";
-    sha256 = "12lp7bzrnj5fqjy06cgy1q626xhalv30gbcd95wgls4rfrb8zyq9";
+  src = fetchurl {
+    url = "https://github.com/conformal/spectrwm/archive/SPECTRWM_2_6_2.tar.gz";
+    sha256 = "1pc9p3vwa4bsv76myqkqhp4cxspr72s5igi7cs9xrpd4xx6xc90s";
   };
 
   buildInputs = [
@@ -37,12 +35,8 @@ stdenv.mkDerivation rec {
     xcbutilwm
   ];
 
-  doCheck = false;
-
-  preBuild = ''
-    cd linux
-    makeFlags="PREFIX=$out"
-  '';
+  sourceRoot = "spectrwm-SPECTRWM_2_6_2/linux";
+  makeFlags="PREFIX=$(out)";
   installPhase = "PREFIX=$out make install";
 
   meta = with stdenv.lib; {
