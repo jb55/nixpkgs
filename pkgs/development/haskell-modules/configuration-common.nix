@@ -25,6 +25,9 @@ self: super: {
   # Doesn't compile with lua 5.2.
   hslua = super.hslua.override { lua = pkgs.lua5_1; };
 
+  # Use the default version of mysql to build this package (which is actually mariadb).
+  mysql = super.mysql.override { inherit (pkgs) mysql; };
+
   # Please also remove optparse-applicative special case from
   # cabal2nix/hackage2nix.hs when removing the following.
   elm-make = super.elm-make.override { optparse-applicative = self.optparse-applicative_0_10_0; };
@@ -425,7 +428,7 @@ self: super: {
   snappy = dontCheck super.snappy;
 
   # Needs llvm to compile.
-  bytestring-arbitrary = addBuildTool super.bytestring-arbitrary pkgs.llvm;
+  bytestring-arbitrary = addBuildTool super.bytestring-arbitrary pkgs.llvm_34;
 
   # Expect to find sendmail(1) in $PATH.
   mime-mail = appendConfigureFlag super.mime-mail "--ghc-option=-DMIME_MAIL_SENDMAIL_PATH=\"sendmail\"";
@@ -626,6 +629,13 @@ self: super: {
 
   # https://github.com/tych0/xcffib/issues/37
   xcffib = dontCheck super.xcffib;
+
+  # https://github.com/afcowie/locators/issues/1
+  locators = dontCheck super.locators;
+
+  # https://github.com/scravy/hydrogen-syntax/issues/1
+  hydrogen-syntax = markBroken super.hydrogen-syntax;
+  hydrogen-cli = dontDistribute super.hydrogen-cli;
 
 } // {
 
