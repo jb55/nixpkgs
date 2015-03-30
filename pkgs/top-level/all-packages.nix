@@ -10490,6 +10490,8 @@ let
 
   offrss = callPackage ../applications/networking/offrss { };
 
+  obs-studio = callPackage ../applications/video/obs-studio { };
+
   ogmtools = callPackage ../applications/video/ogmtools { };
 
   omxplayer = callPackage ../applications/video/omxplayer { };
