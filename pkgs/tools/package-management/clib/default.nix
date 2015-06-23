@@ -1,4 +1,4 @@
-{ stdenv, fetchurl }:
+{ stdenv, fetchurl, curl  }:
 
 stdenv.mkDerivation rec {
   version = "1.4.2";
@@ -10,6 +10,8 @@ stdenv.mkDerivation rec {
   };
 
   makeFlags = "PREFIX=$(out)";
+
+  buildInputs = [ curl ];
 
   meta = with stdenv.lib; {
     description = "C micro-package manager";
