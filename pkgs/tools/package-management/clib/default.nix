@@ -5,7 +5,7 @@ stdenv.mkDerivation rec {
   name = "clib-${version}";
 
   src = fetchurl {
-    url = "https://github.com/clibs/clib/archive/1.4.2.tar.gz";
+    url = "https://github.com/clibs/clib/archive/${version}.tar.gz";
     sha256 = "04qy8d5gz95zsf9jfr3fryfykma1sgzv2061qbk4qnlm225dkwy1";
   };
 
