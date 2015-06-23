@@ -11,8 +11,6 @@ stdenv.mkDerivation rec {
 
   makeFlags = "PREFIX=$(out)";
 
-  buildInputs = [ ];
-
   meta = with stdenv.lib; {
     description = "C micro-package manager";
     homepage = "https://github.com/clibs/clib";
