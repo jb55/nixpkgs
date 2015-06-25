@@ -2125,7 +2125,7 @@ let
   mfoc = callPackage ../tools/security/mfoc { };
 
   minecraft = callPackage ../games/minecraft {
-    pulseaudioSupport = config.pulseaudio or true;
+    pulseaudioSupport = config.pulseaudio or false;
   };
 
   minecraft-server = callPackage ../games/minecraft-server { };
