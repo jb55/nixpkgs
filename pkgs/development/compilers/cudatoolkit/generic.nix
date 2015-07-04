@@ -1,10 +1,16 @@
 { lib, stdenv, fetchurl, patchelf, perl, ncurses, expat, python, zlib
 , xlibs, gtk2, glib, fontconfig, freetype, unixODBC, alsaLib, glibc
-}:
+# generic inputs
+, version, sha256, url ? null
+} :
 
-let version = "6.5.19"; in
-
-stdenv.mkDerivation rec {
+let
+  # eg, 5.5.22 => 5_5
+  mkShort = let str  = stdenv.lib.strings;
+                take = stdenv.lib.lists.take;
+            in v: str.concatStringsSep "_" (take 2 (str.splitString "." v));
+  shortVer = mkShort version;
+in stdenv.mkDerivation rec {
   name = "cudatoolkit-${version}";
 
   dontPatchELF = true;
@@ -13,8 +19,8 @@ stdenv.mkDerivation rec {
   src =
     if stdenv.system == "x86_64-linux" then
       fetchurl {
-        url = "http://developer.download.nvidia.com/compute/cuda/6_5/rel/installers/cuda_${version}_linux_64.run";
-        sha256 = "1x9zdmk8z784d3d35vr2ak1l4h5v4jfjhpxfi9fl9dvjkcavqyaj";
+        url = if url != null then url else "http://developer.download.nvidia.com/compute/cuda/${shortVer}/rel/installers/cuda_${version}_linux_64.run";
+        sha256 = sha256;
       }
     else throw "cudatoolkit does not support platform ${stdenv.system}";
 
@@ -23,8 +29,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ perl ];
 
   runtimeDependencies = [
-    glibc
-    ncurses expat python zlib
+    ncurses expat python zlib glibc
     xlibs.libX11 xlibs.libXext xlibs.libXrender xlibs.libXt xlibs.libXtst xlibs.libXi xlibs.libXext
     gtk2 glib fontconfig freetype unixODBC alsaLib
   ];
@@ -66,4 +71,3 @@ stdenv.mkDerivation rec {
     license = lib.licenses.unfree;
   };
 }
-
