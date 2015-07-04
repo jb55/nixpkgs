@@ -32,5 +32,6 @@ stdenv.mkDerivation rec {
     homepage = http://symas.com/mdb/;
     maintainers = with maintainers; [ jb55 ];
     license = licenses.openldap;
+    platforms = platforms.all;
   };
 }
