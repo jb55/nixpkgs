@@ -31,12 +31,12 @@ in stdenv.mkDerivation rec {
 
   preConfigure = "mv Makefile.config.example Makefile.config";
 
-  makeFlags = "-j8 BLAS=open " +
+  makeFlags = "BLAS=open " +
               (if !cudaSupport then "CPU_ONLY=1 " else "CUDA_DIR=${cudatoolkit7} ") +
               (if cudnnSupport then "USE_CUDNN=1 " else "");
 
-  # tests are broken in cpu mode
-  doCheck = cudaSupport;
+  # too many issues with tests to run them for now
+  doCheck = false;
   checkPhase = "make runtest ${makeFlags}";
 
   buildInputs = [ openblas boost google-gflags glog hdf5 leveldb lmdb opencv
@@ -65,6 +65,6 @@ in stdenv.mkDerivation rec {
     homepage = http://caffe.berkeleyvision.org/;
     maintainers = with maintainers; [ jb55 ];
     license = licenses.bsd2;
-    platforms = platforms.unix;
+    platforms = platforms.linux;
   };
 }
