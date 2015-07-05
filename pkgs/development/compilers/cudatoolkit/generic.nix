@@ -1,7 +1,7 @@
 { lib, stdenv, fetchurl, patchelf, perl, ncurses, expat, python, zlib
 , xlibs, gtk2, glib, fontconfig, freetype, unixODBC, alsaLib, glibc
 # generic inputs
-, version, sha256, url ? null
+, version, sha256, url ? null, ...
 } :
 
 let
