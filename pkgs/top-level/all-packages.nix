@@ -1143,28 +1143,19 @@ let
 
   cron = callPackage ../tools/system/cron { };
 
-  cudatoolkit5 = callPackage ../development/compilers/cudatoolkit/generic.nix {
-    version = "5.5.22";
-    sha256 = "b997e1dbe95704e0e806e0cedc5fd370a385351fef565c7bae0917baf3a29aa4";
+  cudatoolkit5 = callPackage ../development/compilers/cudatoolkit/5.5.nix {
     python = python26;
   };
 
-  cudatoolkit6 = callPackage ../development/compilers/cudatoolkit/generic.nix {
-    version = "6.0.37";
-    sha256 = "991e436c7a6c94ec67cf44204d136adfef87baa3ded270544fa211179779bc40";
+  cudatoolkit6 = callPackage ../development/compilers/cudatoolkit/6.0.nix {
     python = python26;
   };
 
-  cudatoolkit65 = callPackage ../development/compilers/cudatoolkit/generic.nix {
-    version = "6.5.19";
-    sha256 = "1x9zdmk8z784d3d35vr2ak1l4h5v4jfjhpxfi9fl9dvjkcavqyaj";
+  cudatoolkit65 = callPackage ../development/compilers/cudatoolkit/6.5.nix {
     python = python26;
   };
 
-  cudatoolkit7 = callPackage ../development/compilers/cudatoolkit/generic.nix {
-    version = "7.0.28";
-    sha256 = "1km5hpiimx11jcazg0h3mjzk220klwahs2vfqhjavpds5ff2wafi";
-    url = "http://developer.download.nvidia.com/compute/cuda/7_0/Prod/local_installers/cuda_7.0.28_linux.run";
+  cudatoolkit7 = callPackage ../development/compilers/cudatoolkit/7.0.nix {
     python = python26;
   };
 
