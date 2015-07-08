@@ -5,7 +5,7 @@
 , cudnnSupport ? false
 , cudnn ? null
 , cudatoolkit7
-, fetchzip
+, fetchFromGithub
 , google-gflags
 , glog
 , hdf5
@@ -20,12 +20,12 @@
 let optional = stdenv.lib.optional;
 in stdenv.mkDerivation rec {
   # Use git revision because latest "release" is really old
-  name = "caffe-${rev}";
-  rev = "77d66dfc";
+  name = "caffe-git-2015-07-02";
 
-  src = fetchzip {
-    name = "${name}.tar.gz";
-    url = "https://github.com/BVLC/caffe/tarball/${rev}";
+  src = fetchFromGitHub {
+    owner = "BVLC";
+    repo = "caffe";
+    rev = "77d66dfc907dd875d69bb9fc12dd950b531e464f";
     sha256 = "0vd4qrc49dhsawj298xpkd5mvi35sh56kdswx3yp8ya4fjajwakx";
   };
 
