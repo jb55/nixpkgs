@@ -19,11 +19,11 @@
 with lib;
 
 stdenv.mkDerivation rec {
-  name = "samba-4.2.1";
+  name = "samba-4.2.3";
 
   src = fetchurl {
     url = "mirror://samba/pub/samba/stable/${name}.tar.gz";
-    sha256 = "1hsakc8h6rs48xr6i55m90pd53hpxcqjjnlwq8i2rp0nq4ws5sip";
+    sha256 = "0z2c17d2id0m59mfdxdljhizp97l29clmw6g5zp93n0q92pabpxn";
   };
 
   patches =
@@ -61,11 +61,13 @@ stdenv.mkDerivation rec {
       "--enable-fhs"
       "--sysconfdir=/etc"
       "--localstatedir=/var"
-      "--bundled-libraries=${if enableKerberos && kerberos.implementation == "heimdal" then "NONE" else "com_err"}"
+      "--bundled-libraries=${if enableKerberos && kerberos != null &&
+        kerberos.implementation == "heimdal" then "NONE" else "com_err"}"
       "--private-libraries=NONE"
       "--builtin-libraries=replace"
     ]
-    ++ optional (enableKerberos != null && kerberos.implementation == "krb5") "--with-system-mitkrb5"
+    ++ optional (enableKerberos && kerberos != null &&
+      kerberos.implementation == "krb5") "--with-system-mitkrb5"
     ++ optional (!enableDomainController) "--without-ad-dc"
     ++ optionals (!enableLDAP) [ "--without-ldap" "--without-ads" ];
 

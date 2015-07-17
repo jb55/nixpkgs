@@ -16,6 +16,7 @@ let
   corePackages = with gnome3; [
     pkgs.desktop_file_utils pkgs.ibus
     pkgs.shared_mime_info # for update-mime-database
+    glib # for gsettings
     gtk3 # for gtk-update-icon-cache
     glib_networking gvfs dconf gnome-backgrounds gnome_control_center
     gnome-menus gnome_settings_daemon gnome_shell
@@ -41,6 +42,7 @@ let
   cogl = pkgs.cogl_1_20;
   gtk = gtk3;
   gtkmm = gtkmm3;
+  gtkvnc = pkgs.gtkvnc.override { enableGTK3 = true; };
   vala = pkgs.vala_0_26;
   gegl_0_3 = pkgs.gegl_0_3.override { inherit gtk; };
 
@@ -150,8 +152,6 @@ let
   gsound = callPackage ./core/gsound { };
 
   gtksourceview = callPackage ./core/gtksourceview { };
-
-  gtk-vnc = callPackage ./core/gtk-vnc { };
 
   gucharmap = callPackage ./core/gucharmap { };
 

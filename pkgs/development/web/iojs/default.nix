@@ -1,14 +1,14 @@
 { stdenv, fetchurl, python, utillinux, openssl_1_0_2, http-parser, zlib, libuv }:
 
 let
-  version = "2.2.1";
+  version = "2.3.4";
   inherit (stdenv.lib) optional maintainers licenses platforms;
 in stdenv.mkDerivation {
   name = "iojs-${version}";
 
   src = fetchurl {
     url = "https://iojs.org/dist/v${version}/iojs-v${version}.tar.gz";
-    sha256 = "1ylmj69nwhqqwn1grphlrzny9dp4bspx4172q41izr6dyk29rrsm";
+    sha256 = "1h9cjrs93c8rdycc0ahhc27wv826211aljvfmxfg8jdmg6nvibhq";
   };
 
   prePatch = ''

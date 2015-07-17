@@ -484,6 +484,10 @@ let self = _self // overrides; _self = with self; {
       sha256 = "1jnihz3029x51a455nxa0jx2z125x38q3vkkggsgdlrvawzxsm00";
     };
     propagatedBuildInputs = [ ModuleBuildWithXSpp ExtUtilsTypemapsDefault ];
+    patches = [
+      # Fix out of memory error on Perl 5.19.4 and later.
+      ../development/perl-modules/boost-geometry-utils-fix-oom.patch
+    ];
   };
 
   BusinessISBN = buildPerlPackage {
@@ -1973,6 +1977,23 @@ let self = _self // overrides; _self = with self; {
     };
   };
 
+  CryptOpenSSLAES = buildPerlPackage rec {
+    name = "Crypt-OpenSSL-AES-0.02";
+    src = fetchurl {
+      url = "mirror://cpan/authors/id/T/TT/TTAR/${name}.tar.gz";
+      sha256 = "b66fab514edf97fc32f58da257582704a210c2b35e297d5c31b7fa2ffd08e908";
+    };
+    NIX_CFLAGS_COMPILE = "-I${pkgs.openssl}/include";
+    NIX_CFLAGS_LINK = "-L${pkgs.openssl}/lib -lcrypto";
+    meta = with stdenv.lib; {
+      homepage = https://metacpan.org/release/Crypt-OpenSSL-AES;
+      description = "Perl wrapper around OpenSSL's AES library";
+      license = with licenses; [ artistic1 gpl1Plus ];
+      maintainers = [ maintainers.rycee ];
+      platforms = platforms.unix;
+    };
+  };
+
   CryptOpenSSLBignum = buildPerlPackage rec {
     name = "Crypt-OpenSSL-Bignum-0.04";
     src = fetchurl {
@@ -2250,12 +2271,12 @@ let self = _self // overrides; _self = with self; {
   };
 
   DateTime = buildPerlModule {
-    name = "DateTime-1.08";
+    name = "DateTime-1.19";
     src = fetchurl {
-      url = mirror://cpan/authors/id/D/DR/DROLSKY/DateTime-1.08.tar.gz;
-      sha256 = "0ijhb1mqrfp1pbj4r3wkpp0hdj3zg355skxdn6dsiv439fp65asf";
+      url = mirror://cpan/authors/id/D/DR/DROLSKY/DateTime-1.19.tar.gz;
+      sha256 = "07c8624a7827277e8eda35c77cfc6fd056bf2782238597f424ef6a6e33ed6009";
     };
-    buildInputs = [ TestFatal ];
+    buildInputs = [ TestFatal TestWarnings ];
     propagatedBuildInputs = [ DateTimeLocale DateTimeTimeZone ParamsValidate TryTiny ];
     meta = {
       description = "A date and time object";
@@ -2382,10 +2403,10 @@ let self = _self // overrides; _self = with self; {
   };
 
   DateTimeFormatStrptime = buildPerlPackage {
-    name = "DateTime-Format-Strptime-1.54";
+    name = "DateTime-Format-Strptime-1.56";
     src = fetchurl {
-      url = mirror://cpan/authors/id/D/DR/DROLSKY/DateTime-Format-Strptime-1.54.tar.gz;
-      sha256 = "00bb61b12472fb1a637ec55bbd8878db05b3aac89a67b7991b281e32896db9de";
+      url = mirror://cpan/authors/id/D/DR/DROLSKY/DateTime-Format-Strptime-1.56.tar.gz;
+      sha256 = "2ff69d0f5a0359aab04e7276db5bee3be10040da24fbf09de1d904e7ead78b28";
     };
     propagatedBuildInputs = [ DateTime DateTimeLocale DateTimeTimeZone ParamsValidate ];
     meta = {
@@ -2395,11 +2416,12 @@ let self = _self // overrides; _self = with self; {
   };
 
   DateTimeLocale = buildPerlPackage {
-    name = "DateTime-Locale-0.45";
+    name = "DateTime-Locale-0.46";
     src = fetchurl {
-      url = mirror://cpan/authors/id/D/DR/DROLSKY/DateTime-Locale-0.45.tar.gz;
-      sha256 = "8aa1b8db0baccc26ed88f8976a228d2cdf4f6ed4e10fc88c1501ecd8f3ccaf9c";
+      url = mirror://cpan/authors/id/D/DR/DROLSKY/DateTime-Locale-0.46.tar.gz;
+      sha256 = "b4ceaa0dc0b89d4eb180eb970a927cf376e3d04ef42de98de2e034cd2021348d";
     };
+    buildInputs = [ DistCheckConflicts ];
     propagatedBuildInputs = [ ListMoreUtils ParamsValidate ];
     meta = {
       homepage = http://datetime.perl.org/;
@@ -2422,13 +2444,13 @@ let self = _self // overrides; _self = with self; {
   };
 
   DateTimeTimeZone = buildPerlPackage {
-    name = "DateTime-TimeZone-1.63";
+    name = "DateTime-TimeZone-1.91";
     src = fetchurl {
-      url = mirror://cpan/authors/id/D/DR/DROLSKY/DateTime-TimeZone-1.63.tar.gz;
-      sha256 = "02a3kyz3cyrag98b1949k19axm03fa5ri82gdc1y4lnxjvjvxkfw";
+      url = mirror://cpan/authors/id/D/DR/DROLSKY/DateTime-TimeZone-1.91.tar.gz;
+      sha256 = "0b0899a1b1a32ed3928397323a06692223688db2c3c050734e7ff4c7b231bd32";
     };
-    buildInputs = [ TestOutput ];
-    propagatedBuildInputs = [ ClassLoad ClassSingleton ParamsValidate ];
+    buildInputs = [ TestFatal TestRequires ];
+    propagatedBuildInputs = [ ClassSingleton ListAllUtils ModuleRuntime ParamsValidate TryTiny ];
     meta = {
       description = "Time zone object base class and factory";
       license = with stdenv.lib.licenses; [ artistic1 gpl1Plus ];
@@ -5142,11 +5164,12 @@ let self = _self // overrides; _self = with self; {
   };
 
   ListAllUtils = buildPerlPackage {
-    name = "List-AllUtils-0.03";
+    name = "List-AllUtils-0.09";
     src = fetchurl {
-      url = mirror://cpan/authors/id/D/DR/DROLSKY/List-AllUtils-0.03.tar.gz;
-      sha256 = "05d1q88pr4wgsqcla0g4kd45mxg7h9v3z3f4pv830xaviiqwq1j8";
+      url = mirror://cpan/authors/id/D/DR/DROLSKY/List-AllUtils-0.09.tar.gz;
+      sha256 = "4cfe6359cc6c9f4ba0d178e223f4b468d3cf7768d645334962f05de069bdaee2";
     };
+    buildInputs = [ TestWarnings ];
     propagatedBuildInputs = [ ListMoreUtils ];
     meta = {
       description = "Combines List::Util and List::MoreUtils in one bite-sized package";

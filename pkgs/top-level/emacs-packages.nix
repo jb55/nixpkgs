@@ -839,6 +839,18 @@ let self = _self // overrides;
     meta = { license = gpl3Plus; };
   };
 
+  moe-theme = melpaBuild rec {
+    pname   = "moe-theme";
+    version = "1.0";
+    src = fetchFromGitHub {
+      owner  = "kuanyui";
+      repo   = "${pname}.el";
+      rev    = "39384a7a9e6886f3a3d79efac4009fcd800a4a14";
+      sha256 = "0i7m15x9sij5wh0gwbijsis8a4jm8izywj7xprk21644ndskvfiz";
+    };
+    meta = { license = gpl3Plus; };
+  };
+
   monokai-theme = melpaBuild rec {
     pname   = "monokai-theme";
     version = "1.0.0";
@@ -849,6 +861,17 @@ let self = _self // overrides;
       sha256 = "02w7k4s4698p4adjy4a36na28sb1s2zw4xsjs7p2hv9iiw9kmyvz";
     };
     meta = { license = gpl3Plus; };
+  };
+
+  multiple-cursors = melpaBuild rec {
+    pname = "multiple-cursors";
+    version = "20150627";
+    src = fetchFromGitHub {
+      owner  = "magnars";
+      repo   = "multiple-cursors.el";
+      rev    = "9b53e892e6167f930763a3c5aedf8773110a8ae9";
+      sha256 = "0wcrdb137a9aq6dynlqbvypb6m2dj48m899xwy7ilnf2arrmipid";
+    };
   };
 
   nyan-mode = callPackage ../applications/editors/emacs-modes/nyan-mode {};

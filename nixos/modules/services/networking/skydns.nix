@@ -7,7 +7,7 @@ let
 
 in {
   options.services.skydns = {
-    enable = mkEnableOption "Whether to enable skydns service.";
+    enable = mkEnableOption "skydns service";
 
     etcd = {
       machines = mkOption {
@@ -55,7 +55,7 @@ in {
     };
 
     package = mkOption {
-      default = pkgs.goPackages.skydns;
+      default = pkgs.skydns;
       type = types.package;
       description = "Skydns package to use.";
     };

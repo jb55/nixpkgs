@@ -1,11 +1,11 @@
 { stdenv, fetchurl, ncurses, pam ? null }:
 
 stdenv.mkDerivation rec {
-  name = "screen-4.3.0";
+  name = "screen-4.3.1";
 
   src = fetchurl {
     url = "mirror://gnu/screen/${name}.tar.gz";
-    sha256 = "0ilccnwszaxr9wbrx0swh4fisha2rj2jiq76fwqikmv0rjdyhr2i";
+    sha256 = "0qwxd4axkgvxjigz9xs0kcv6qpfkrzr2gm43w9idx0z2mvw4jh7s";
   };
 
   preConfigure = ''
@@ -45,6 +45,6 @@ stdenv.mkDerivation rec {
       '';
 
     platforms = stdenv.lib.platforms.unix;
-    maintainers = [ stdenv.lib.maintainers.simons ];
+    maintainers = with stdenv.lib.maintainers; [ simons jgeerds ];
   };
 }
