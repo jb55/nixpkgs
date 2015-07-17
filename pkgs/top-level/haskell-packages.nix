@@ -31,6 +31,9 @@ rec {
     ghc784 = callPackage ../development/compilers/ghc/7.8.4.nix ({ ghc = compiler.ghc742Binary; } // stdenv.lib.optionalAttrs stdenv.isDarwin {
       libiconv = pkgs.darwin.libiconv;
     });
+    ghc784-jemalloc = callPackage ../development/compilers/ghc/7.8.4-jemalloc.nix ({ ghc = compiler.ghc742Binary; } // stdenv.lib.optionalAttrs stdenv.isDarwin {
+      libiconv = pkgs.darwin.libiconv;
+    });
     ghc7101 = callPackage ../development/compilers/ghc/7.10.1.nix ({ ghc = compiler.ghc784; } // stdenv.lib.optionalAttrs stdenv.isDarwin {
       libiconv = pkgs.darwin.libiconv;
     });
@@ -78,6 +81,10 @@ rec {
     };
     ghc784 = callPackage ../development/haskell-modules {
       ghc = compiler.ghc784;
+      packageSetConfig = callPackage ../development/haskell-modules/configuration-ghc-7.8.x.nix { };
+    };
+    ghc784-jemalloc = callPackage ../development/haskell-modules {
+      ghc = compiler.ghc784-jemalloc;
       packageSetConfig = callPackage ../development/haskell-modules/configuration-ghc-7.8.x.nix { };
     };
     ghc7101 = callPackage ../development/haskell-modules {
