@@ -2305,6 +2305,9 @@ let
 
   netselect = callPackage ../tools/networking/netselect { };
 
+  # stripped down, needed by steam
+  networkmanager098 = callPackage ../tools/networking/network-manager/0.9.8.nix { };
+
   networkmanager = callPackage ../tools/networking/network-manager { };
 
   networkmanager_openvpn = callPackage ../tools/networking/network-manager/openvpn.nix { };
@@ -6278,6 +6281,7 @@ let
   libgit2 = callPackage ../development/libraries/git2 { };
 
   glew = callPackage ../development/libraries/glew { };
+  glew110 = callPackage ../development/libraries/glew/1.10.nix { };
 
   glfw = glfw3;
   glfw2 = callPackage ../development/libraries/glfw/2.x.nix { };
@@ -10229,6 +10233,9 @@ let
   udev = pkgs.systemd;
   eudev = callPackage ../os-specific/linux/eudev {};
 
+  # libudev.so.0
+  udev182 = callPackage ../os-specific/linux/udev/182.nix { };
+
   udisks1 = callPackage ../os-specific/linux/udisks/1-default.nix { };
   udisks2 = callPackage ../os-specific/linux/udisks/2-default.nix { };
   udisks = udisks1;
@@ -13709,7 +13716,12 @@ let
 
   steam-original = lowPrio (callPackage ../games/steam { });
 
-  steam = callPackage ../games/steam/chrootenv.nix { };
+  steam = callPackage ../games/steam/chrootenv.nix {
+    # DEPRECATED
+    withJava = config.steam.java or false;
+    withPrimus = config.steam.primus or false;
+    withRuntime = config.steam.withRuntime or true;
+  };
 
   stuntrally = callPackage ../games/stuntrally { };
 

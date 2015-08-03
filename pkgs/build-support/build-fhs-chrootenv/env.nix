@@ -190,10 +190,10 @@ let
 
     mkdir -m0755 usr
     cd usr
-    ${linkProfile staticUsrProfileTarget}
-    ${setupLibDirs}
+    for i in ../*; do
+      [ "$i" != "etc" ] && [ "$i" != "var" ] && [ "$i" != "usr" ] && ln -s $i
+    done
     cd ..
-    rm -rf usr/etc usr/var
   '';
 
 in nixpkgs.stdenv.mkDerivation {
