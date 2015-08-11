@@ -14,6 +14,7 @@ buildFHSUserEnv {
       pkgs.python2
       # Games' dependencies
       pkgs.xlibs.xrandr
+      pkgs.which
     ]
     ++ lib.optional withJava pkgs.jdk
     ++ lib.optional withPrimus pkgs.primus
@@ -104,6 +105,8 @@ buildFHSUserEnv {
       pkgs.SDL2_mixer
       pkgs.gstreamer
       pkgs.gst_plugins_base
+      pkgs.openal
+
     ];
 
   extraBuildCommands = ''
