@@ -14587,6 +14587,8 @@ let
 
   ### MISC
 
+  antimicro = callPackage ../tools/misc/antimicro { };
+
   atari800 = callPackage ../misc/emulators/atari800 { };
 
   ataripp = callPackage ../misc/emulators/atari++ { };
