@@ -1015,4 +1015,7 @@ self: super: {
   # https://github.com/goldfirere/singletons/issues/122
   singletons = dontCheck super.singletons;
 
+  # https://github.com/vincenthz/hs-certificate/issues/62
+  x509-validation = dontHaddock super.x509-validation;
+
 }
