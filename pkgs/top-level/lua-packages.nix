@@ -26,6 +26,32 @@ let
     inherit lua;
   };
 
+  luacwrap = buildLuaPackage rec {
+    pname = "cwrap";
+    name = "${pname}-${version}";
+    version = "git-2015-08-29";
+
+    src = fetchFromGitHub {
+      owner = "torch";
+      repo = "cwrap";
+      rev = "6e7d52f0a359dee47127386adb03c0dc4ddd4766";
+      sha256 = "01yh9z0axz0b4f87mbhkzh64dyv6c4jdkazcpmy1bl1am8apbd8w";
+    };
+
+    installPhase = ''
+      LUA_LIBDIR="$out/lib/lua/${lua.luaversion}/${pname}/"
+      mkdir -p $LUA_LIBDIR
+      cp {init,cinterface,types}.lua $LUA_LIBDIR
+    '';
+
+    meta = with stdenv.lib; {
+      description = "cwrap";
+      homepage = "https://github.com/torch/cwrap";
+      maintainers = with maintainers; [ jb55 ];
+      license = licenses.bsd;
+    };
+  };
+
   luabitop = buildLuaPackage rec {
     version = "1.0.2";
     name = "bitop-${version}";
