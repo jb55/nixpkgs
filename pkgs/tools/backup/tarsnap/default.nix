@@ -19,6 +19,11 @@ stdenv.mkDerivation rec {
     configureFlags="--with-bash-completion-dir=$out/etc/bash_completion.d"
   '';
 
+  patchPhase = ''
+    substituteInPlace Makefile.in \
+      --replace "command -p mv" "mv"
+  '';
+
   postInstall = ''
     # Install some handy-dandy shell completions
     install -m 444 -D ${zshCompletion} $out/share/zsh/site-functions/_tarsnap
