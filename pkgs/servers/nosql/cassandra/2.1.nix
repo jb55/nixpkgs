@@ -6,12 +6,13 @@
 , gawk
 , bash
 , getopt
+, procps
 }:
 
 let
 
-  version = "2.1.6";
-  sha256 = "1xq96h33f4xmld114mrd57z396f9ykcj0xy50fnnhy5mhafkn4n2";
+  version = "2.1.9";
+  sha256 = "10nwh7kx4k0kkfvl3sf22v3x58q37b81lkr6s6gvzkq67f6mjcvs";
 
 in
 
@@ -20,7 +21,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     inherit sha256;
-    url = "http://apache.cs.utah.edu/cassandra/${version}/apache-${name}-bin.tar.gz";
+    url = "mirror://apache/cassandra/${version}/apache-${name}-bin.tar.gz";
   };
 
   nativeBuildInputs = [ makeWrapper ];
@@ -34,7 +35,8 @@ stdenv.mkDerivation rec {
         --set JAVA_HOME ${jre} \
         --prefix PATH : ${bash}/bin \
         --prefix PATH : ${getopt}/bin \
-        --prefix PATH : ${gawk}/bin
+        --prefix PATH : ${gawk}/bin \
+        --prefix PATH : ${procps}/bin
     done
 
     wrapProgram $out/bin/cqlsh --prefix PATH : ${python}/bin

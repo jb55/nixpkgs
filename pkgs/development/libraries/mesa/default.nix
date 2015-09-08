@@ -1,10 +1,9 @@
 { stdenv, fetchurl, fetchpatch, pkgconfig, intltool, flex, bison, autoreconfHook, substituteAll
 , python, libxml2Python, file, expat, makedepend, pythonPackages
 , libdrm, xorg, wayland, udev, llvmPackages, libffi, libomxil-bellagio
-, libvdpau, libelf, libva, libclc
+, libvdpau, libelf, libva
 , grsecEnabled
 , enableTextureFloats ? false # Texture floats are patented, see docs/patents.txt
-, enableExtraFeatures ? false # not maintained
 }:
 
 if ! stdenv.lib.lists.elem stdenv.system stdenv.lib.platforms.mesaPlatforms then
@@ -23,10 +22,9 @@ else
 */
 
 let
-  version = "10.5.6";
+  version = "10.6.5";
   # this is the default search path for DRI drivers
   driverLink = "/run/opengl-driver" + stdenv.lib.optionalString stdenv.isi686 "-32";
-  clang = if llvmPackages ? clang-unwrapped then llvmPackages.clang-unwrapped else llvmPackages.clang;
 in
 with { inherit (stdenv.lib) optional optionals optionalString; };
 
@@ -38,7 +36,7 @@ stdenv.mkDerivation {
       "https://launchpad.net/mesa/trunk/${version}/+download/mesa-${version}.tar.xz"
       "ftp://ftp.freedesktop.org/pub/mesa/${version}/mesa-${version}.tar.xz"
     ];
-    sha256 = "15d5icr7q0nq1a7718fsj4s1l29aa4qdxvmkgmjadxz5pm9ph0b6";
+    sha256 = "fb6fac3c85bcfa9d06b8dd439169f23f0c0924a88e44362e738b99b1feff762f";
   };
 
   prePatch = "patchShebangs .";
@@ -63,7 +61,6 @@ stdenv.mkDerivation {
   configureFlags = [
     "--sysconfdir=/etc"
     "--localstatedir=/var"
-    "--with-clang-libdir=${clang}/lib"
     "--with-dri-driverdir=$(drivers)/lib/dri"
     "--with-dri-searchpath=${driverLink}/lib/dri"
 
@@ -81,13 +78,11 @@ stdenv.mkDerivation {
     ++ [
     "--enable-xvmc"
     "--enable-vdpau"
-    "--enable-omx"
-    "--enable-va"
+    #"--enable-omx"
+    #"--enable-va"
 
     # TODO: Figure out how to enable opencl without having a runtime dependency on clang
     "--disable-opencl"
-    #"--enable-opencl"
-    #"--enable-opencl-icd"
 
     "--with-gallium-drivers=svga,i915,ilo,r300,r600,radeonsi,nouveau,freedreno,swrast"
     "--enable-shared-glapi"
@@ -111,8 +106,7 @@ stdenv.mkDerivation {
     autoreconfHook intltool expat libxml2Python llvmPackages.llvm
     glproto dri2proto dri3proto presentproto
     libX11 libXext libxcb libXt libXfixes libxshmfence
-    libffi wayland libvdpau libelf libXvMC libomxil-bellagio libva
-    libclc clang
+    libffi wayland libvdpau libelf libXvMC /* libomxil-bellagio libva */
   ] ++ optional stdenv.isLinux udev;
 
   enableParallelBuilding = true;
@@ -128,13 +122,8 @@ stdenv.mkDerivation {
   # ToDo: probably not all .la files are completely fixed, but it shouldn't matter
   postInstall = with stdenv.lib; ''
     mv -t "$drivers/lib/" \
-  '' + optionalString enableExtraFeatures ''
-      `#$out/lib/libXvMC*` \
-      $out/lib/gbm $out/lib/libgbm* \
-  '' + ''
-      $out/lib/gallium-pipe \
-      $out/lib/libdricore* \
-      $out/lib/libgallium* \
+      $out/lib/libXvMC* \
+      $out/lib/d3d \
       $out/lib/vdpau \
       $out/lib/libxatracker*
 
@@ -149,18 +138,6 @@ stdenv.mkDerivation {
       $out/lib/pkgconfig/osmesa.pc
 
   '' + /* now fix references in .la files */ ''
-    sed "/^libdir=/s,$out,$drivers," -i \
-  '' + optionalString enableExtraFeatures ''
-      `#$drivers/lib/libXvMC*.la` \
-  '' + ''
-      $drivers/lib/gallium-pipe/*.la \
-      $drivers/lib/libgallium.la \
-      $drivers/lib/vdpau/*.la \
-      $drivers/lib/libdricore*.la
-
-    sed "s,$out\(/lib/\(libdricore[0-9\.]*\|libgallium\).la\),$drivers\1,g" \
-      -i $drivers/lib/*.la $drivers/lib/*/*.la
-
     sed "/^libdir=/s,$out,$osmesa," -i \
       $osmesa/lib/libOSMesa*.la
 

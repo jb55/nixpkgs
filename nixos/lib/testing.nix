@@ -15,6 +15,8 @@ rec {
 
     unpackPhase = "true";
 
+    preferLocalBuild = true;
+
     installPhase =
       ''
         mkdir -p $out/bin
@@ -122,12 +124,16 @@ rec {
             ${lib.optionalString (builtins.length vms == 1) "--set USE_SERIAL 1"}
         ''; # "
 
-      test = runTests driver;
+      passMeta = drv: drv // lib.optionalAttrs (t ? meta) {
+        meta = (drv.meta or {}) // t.meta;
+      };
 
-      report = releaseTools.gcovReport { coverageRuns = [ test ]; };
+      test = passMeta (runTests driver);
+      report = passMeta (releaseTools.gcovReport { coverageRuns = [ test ]; });
 
-    in (if makeCoverageReport then report else test) // { inherit nodes driver test; };
-
+    in (if makeCoverageReport then report else test) // { 
+      inherit nodes driver test; 
+    };
 
   runInMachine =
     { drv

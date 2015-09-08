@@ -141,6 +141,8 @@ with stdenv.lib;
   # Video configuration.
   # Enable KMS for devices whose X.org driver supports it.
   DRM_I915_KMS y
+  # Allow specifying custom EDID on the kernel command line
+  DRM_LOAD_EDID_FIRMWARE y
   ${optionalString (versionOlder version "3.9") ''
     DRM_RADEON_KMS? y
   ''}
@@ -338,6 +340,7 @@ with stdenv.lib;
   X86_MCE y
 
   # Linux containers.
+  NAMESPACES? y #  Required by 'unshare' used by 'nixos-install'
   RT_GROUP_SCHED? y
   CGROUP_DEVICE? y
   ${if versionAtLeast version "3.6" then ''
@@ -396,7 +399,7 @@ with stdenv.lib;
     KVM_CLOCK? y
   ''}
   ${optionalString (versionAtLeast version "4.0") ''
-    KVM_COMPAT y
+    KVM_COMPAT? y
   ''}
   ${optionalString (versionAtLeast version "3.10") ''
     KVM_DEVICE_ASSIGNMENT? y
@@ -474,8 +477,7 @@ with stdenv.lib;
 
   ${optionalString (versionAtLeast version "3.17") "NFC? n"}
 
-  # Enable firmware loading via udev. Only needed for non-declarative
-  # firmware in /root/test-firmware.
+  # Enable firmware loading via udev (legacy).
   ${optionalString (versionAtLeast version "3.17") ''
     FW_LOADER_USER_HELPER_FALLBACK y
   ''}

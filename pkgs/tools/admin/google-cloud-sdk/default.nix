@@ -1,12 +1,12 @@
 {stdenv, fetchurl, python27, python27Packages, makeWrapper}:
 
 stdenv.mkDerivation rec {
-  version = "0.9.58";
+  version = "0.9.74";
   name = "google-cloud-sdk-${version}";
 
   src = fetchurl {
-    url = "https://dl.google.com/dl/cloudsdk/release/packages/google-cloud-sdk-coretools-linux-static-20150429151447.tar.gz";
-    sha256 = "0sak1fmm7z7ry1k2r67a13mpgi55rbnx81s0y0xhd86dm5aw4f48";
+    url = "https://dl.google.com/dl/cloudsdk/release/packages/google-cloud-sdk-coretools-linux-static-20150817103450.tar.gz";
+    sha256 = "0qdry40xk23c6dvr6qzqn23bg8yfflm1m00gw1mqnpr4m1425vfg";
   };
 
   buildInputs = [python27 makeWrapper];

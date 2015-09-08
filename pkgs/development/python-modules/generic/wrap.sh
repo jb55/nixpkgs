@@ -26,7 +26,7 @@ wrapPythonProgramsIn() {
     done
 
     # Find all regular files in the output directory that are executable.
-    for f in $(find "$dir" -type f -perm +0100); do
+    for f in $(find "$dir" -type f -perm /0100); do
         # Rewrite "#! .../env python" to "#! /nix/store/.../python".
         if head -n1 "$f" | grep -q '#!.*/env.*\(python\|pypy\)'; then
             sed -i "$f" -e "1 s^.*/env[ ]*\(python\|pypy\)^#! $python^"
@@ -37,6 +37,9 @@ wrapPythonProgramsIn() {
             # dont wrap EGG-INFO scripts since they are called from python
             if echo "$f" | grep -qv EGG-INFO/scripts; then
                 echo "wrapping \`$f'..."
+                # The magicalSedExpression will invoke a "$(basename "$f")", so
+                # if you change $f to something else, be sure to also change it
+                # in pkgs/top-level/python-packages.nix!
                 sed -i "$f" -re '@magicalSedExpression@'
                 # wrapProgram creates the executable shell script described
                 # above. The script will set PYTHONPATH and PATH variables.!

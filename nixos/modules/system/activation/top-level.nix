@@ -50,7 +50,7 @@ let
 
         ln -s ${config.system.build.initialRamdisk}/initrd $out/initrd
 
-        ln -s ${config.hardware.firmware} $out/firmware
+        ln -s ${config.hardware.firmware}/lib/firmware $out/firmware
       ''}
 
       echo "$activationScript" > $out/activate
@@ -101,6 +101,7 @@ let
     if [] == failed then pkgs.stdenv.mkDerivation {
       name = "nixos-${config.system.nixosVersion}";
       preferLocalBuild = true;
+      allowSubstitutes = false;
       buildCommand = systemBuilder;
 
       inherit (pkgs) utillinux coreutils;

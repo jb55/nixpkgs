@@ -3,17 +3,14 @@
 
 stdenv.mkDerivation rec {
   name = "bmon-${version}";
-  version = "3.6";
+  version = "3.8";
 
   src = fetchFromGitHub {
     owner = "tgraf";
     repo = "bmon";
     rev = "v${version}";
-    sha256 = "16qwazays2j448kmfckv6wvh4rhmhc9q4vp1s75hm9z02cmhvk8q";
+    sha256 = "19jv14r9j9n54bqhidw3z11z3wys1v2cagqpsxn0kjga1gkg87xs";
   };
-
-  # https://github.com/tgraf/bmon/pull/24#issuecomment-98068887
-  postPatch = "sed '1i#include <net/if.h>' -i src/in_netlink.c";
 
   buildInputs = [ autoconf automake pkgconfig ncurses confuse libnl ];
 

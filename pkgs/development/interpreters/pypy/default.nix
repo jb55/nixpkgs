@@ -49,15 +49,26 @@ let
         --replace "libraries=['curses']" "libraries=['ncurses']"
 
       # tkinter hints
-      substituteInPlace lib_pypy/_tkinter/tklib.py \
+      substituteInPlace lib_pypy/_tkinter/tklib_build.py \
         --replace "'/usr/include/tcl'" "'${tk}/include', '${tcl}/include'" \
-        --replace "linklibs=['tcl', 'tk']" "linklibs=['${tcl.libPrefix}', '${tk.libPrefix}']" \
+        --replace "linklibs = ['tcl' + _ver, 'tk' + _ver]" "linklibs=['${tcl.libPrefix}', '${tk.libPrefix}']" \
         --replace "libdirs = []" "libdirs = ['${tk}/lib', '${tcl}/lib']"
 
-      sed -i "s@libraries=\['sqlite3'\]\$@libraries=['sqlite3'], include_dirs=['${sqlite}/include'], library_dirs=['${sqlite}/lib']@" lib_pypy/_sqlite3.py
+      sed -i "s@libraries=\['sqlite3'\]\$@libraries=['sqlite3'], include_dirs=['${sqlite}/include'], library_dirs=['${sqlite}/lib']@" lib_pypy/_sqlite3_build.py
     '';
 
     setupHook = ./setup-hook.sh;
+
+    postBuild = ''
+      cd ./lib_pypy
+        ../pypy-c ./_audioop_build.py
+        ../pypy-c ./_curses_build.py
+        ../pypy-c ./_pwdgrp_build.py
+        ../pypy-c ./_sqlite3_build.py
+        ../pypy-c ./_syslog_build.py
+        ../pypy-c ./_tkinter/tklib_build.py
+      cd ..
+    '';
 
     doCheck = true;
     checkPhase = ''
@@ -89,7 +100,12 @@ let
        ln -s $out/pypy-c/include $out/include/${libPrefix}
        ln -s $out/pypy-c/lib-python/${pythonVersion} $out/lib/${libPrefix}
 
-       wrapProgram "$out/bin/pypy" \
+       # We must wrap the original, not the symlink.
+       # PyPy uses argv[0] to find its standard library, and while it knows
+       # how to follow symlinks, it doesn't know about wrappers. So, it
+       # will think the wrapper is the original. As long as the wrapper has
+       # the same path as the original, this is OK.
+       wrapProgram "$out/pypy-c/pypy-c" \
          --set LD_LIBRARY_PATH "${LD_LIBRARY_PATH}:$out/lib" \
          --set LIBRARY_PATH "${LIBRARY_PATH}:$out/lib"
 
@@ -103,6 +119,7 @@ let
       isPypy = true;
       buildEnv = callPackage ../python/wrapper.nix { python = self; };
       interpreter = "${self}/bin/${executable}";
+      sitePackages = "lib/${libPrefix}/site-packages";
     };
 
     enableParallelBuilding = true;  # almost no parallelization without STM

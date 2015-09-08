@@ -1,16 +1,30 @@
-{ stdenv, fetchurl, cairo, colord, glib, gtk3, intltool, itstool, libxml2
-, makeWrapper, pkgconfig, saneBackends, systemd, vala }:
+{ stdenv, fetchurl, cairo, colord, glib, gtk3, gusb, intltool, itstool, libusb
+, libxml2, makeWrapper, packagekit, pkgconfig, saneBackends, systemd, vala }:
 
-let version = "3.17.2"; in
+let version = "3.17.91"; in
 stdenv.mkDerivation rec {
   name = "simple-scan-${version}";
 
   src = fetchurl {
-    sha256 = "07r32hsafb8is2fs0flk7dvi5agyzf9jqs96sbgia2pizmyl1s1m";
+    sha256 = "051mwm1kzyfp3mg5z5nkjp7v82swdfvz1v8biap19klg193qjmxc";
     url = "https://launchpad.net/simple-scan/3.17/${version}/+download/${name}.tar.xz";
   };
 
+  buildInputs = [ cairo colord glib gusb gtk3 libusb libxml2 packagekit
+    saneBackends systemd vala ];
+  nativeBuildInputs = [ intltool itstool makeWrapper pkgconfig ];
+
+  enableParallelBuilding = true;
+
+  doCheck = true;
+
+  preFixup = ''
+    wrapProgram "$out/bin/simple-scan" \
+      --prefix XDG_DATA_DIRS : "$GSETTINGS_SCHEMAS_PATH"
+  '';
+
   meta = with stdenv.lib; {
+    inherit version;
     description = "Simple scanning utility";
     longDescription = ''
       A really easy way to scan both documents and photos. You can crop out the
@@ -25,17 +39,4 @@ stdenv.mkDerivation rec {
     platforms = with platforms; linux;
     maintainers = with maintainers; [ nckx ];
   };
-
-  buildInputs = [ cairo colord glib gtk3 intltool itstool libxml2
-    saneBackends systemd vala ];
-  nativeBuildInputs = [ makeWrapper pkgconfig ];
-
-  enableParallelBuilding = true;
-
-  doCheck = true;
-
-  preFixup = ''
-    wrapProgram "$out/bin/simple-scan" \
-      --prefix XDG_DATA_DIRS : "$GSETTINGS_SCHEMAS_PATH"
-  '';
 }

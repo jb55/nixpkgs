@@ -1,12 +1,12 @@
 { callPackage, fetchgit, ... } @ args:
 
 callPackage ./generic.nix (args // rec {
-  version = "0.94.1.2";
+  version = "0.94.3";
 
   src = fetchgit {
     url = "https://github.com/ceph/ceph.git";
     rev = "refs/tags/v${version}";
-    sha256 = "0ks5djgfhjpydjdlw7s940m3mlzrvz0xhhk75nqx7sbvymgcc73q";
+    sha256 = "020khb9978wayi4jnx7f9g1fzfg3r2xn9qw66snpd3k8w2dmycxy";
   };
 
   patches = [ ./fix-pgrefdebugging.patch ];

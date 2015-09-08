@@ -1,15 +1,17 @@
-{ stdenv, fetchurl, attr }:
+{ stdenv, fetchurl, attr, keyutils }:
 
-let version = "0.04.06"; in
-stdenv.mkDerivation rec {
+let
+  version = "0.04.16";
   name = "stress-ng-${version}";
+in stdenv.mkDerivation {
+  inherit name;
 
   src = fetchurl {
-    sha256 = "1iwl16gzxl1gq7gkn6pwhk6ss641n11wgf37yd47jcdr5pac6z9s";
+    sha256 = "0v4zqjh07zc8s4dd1w9iri79dcjfbnv7668rbkmp3pgqzpxdy5wx";
     url = "http://kernel.ubuntu.com/~cking/tarballs/stress-ng/${name}.tar.gz";
   };
 
-  buildInputs = [ attr ];
+  buildInputs = [ attr keyutils ];
 
   patchPhase = ''
     substituteInPlace Makefile --replace "/usr" ""
@@ -36,7 +38,7 @@ stdenv.mkDerivation rec {
     homepage = http://kernel.ubuntu.com/~cking/stress-ng;
     downloadPage = http://kernel.ubuntu.com/~cking/tarballs/stress-ng/;
     license = licenses.gpl2Plus;
-    platforms = with platforms; linux;
+    platforms = platforms.linux;
     maintainers = with maintainers; [ nckx ];
   };
 }

@@ -153,7 +153,12 @@ rec {
   imagemagick = [
     http://www.imagemagick.org/download/
     ftp://ftp.sunet.se/pub/multimedia/graphics/ImageMagick/ # also contains older versions removed from most mirrors
+    http://ftp.sunet.se/pub/multimedia/graphics/ImageMagick/
     ftp://ftp.imagemagick.org/pub/ImageMagick/
+    http://ftp.fifi.org/ImageMagick/
+    ftp://ftp.fifi.org/ImageMagick/
+    http://imagemagick.mirrorcatalogs.com/
+    ftp://imagemagick.mirrorcatalogs.com/imagemagick
   ];
 
   # CPAN mirrors.
@@ -275,6 +280,7 @@ rec {
     http://archive.apache.org/dist/ # fallback for old releases
     ftp://ftp.funet.fi/pub/mirrors/apache.org/
     http://apache.cs.uu.nl/dist/
+    http://apache.cs.utah.edu/
   ];
 
   postgresql = [

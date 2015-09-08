@@ -1,5 +1,5 @@
 { stdenv, fetchurl
-, bzip2, curl, expat, jsoncpp, libarchive, xz, zlib
+, bzip2, curl, expat, libarchive, xz, zlib
 , useNcurses ? false, ncurses, useQt4 ? false, qt4
 , wantPS ? false, ps ? null
 }:
@@ -10,8 +10,8 @@ assert wantPS -> (ps != null);
 
 let
   os = stdenv.lib.optionalString;
-  majorVersion = "3.2";
-  minorVersion = "2";
+  majorVersion = "3.3";
+  minorVersion = "1";
   version = "${majorVersion}.${minorVersion}";
 in
 
@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "${meta.homepage}files/v${majorVersion}/cmake-${version}.tar.gz";
-    sha256 = "0y3w83al0vh9ll7fnqm3nx7l8hsl85k8iv9abxb791q36rp4xsdd";
+    sha256 = "1mp32dqywk4dfw7zmpgp31axszv7h74yk69g273z21q7d8n04rfd";
   };
 
   enableParallelBuilding = true;
@@ -40,7 +40,6 @@ stdenv.mkDerivation rec {
 
   buildInputs =
     [ bzip2 curl expat libarchive xz zlib ]
-    ++ optional (jsoncpp != null && !stdenv.isCygwin) jsoncpp
     ++ optional useNcurses ncurses
     ++ optional useQt4 qt4;
 
@@ -49,12 +48,11 @@ stdenv.mkDerivation rec {
   CMAKE_PREFIX_PATH = stdenv.lib.concatStringsSep ":" buildInputs;
 
   configureFlags =
-    [
-      "--docdir=/share/doc/${name}"
+    [ "--docdir=/share/doc/${name}"
       "--mandir=/share/man"
+      "--no-system-jsoncpp"
     ]
     ++ optional (!stdenv.isCygwin) "--system-libs"
-    ++ optional (jsoncpp == null || stdenv.isCygwin) "--no-system-jsoncpp"
     ++ optional useQt4 "--qt-gui"
     ++ ["--"]
     ++ optional (!useNcurses) "-DBUILD_CursesDialog=OFF";

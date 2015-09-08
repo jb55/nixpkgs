@@ -41,6 +41,7 @@
   ./hardware/video/bumblebee.nix
   ./hardware/video/nvidia.nix
   ./hardware/video/ati.nix
+  ./installer/tools/auto-upgrade.nix
   ./installer/tools/nixos-checkout.nix
   ./installer/tools/tools.nix
   ./misc/assertions.nix
@@ -60,7 +61,6 @@
   ./programs/command-not-found/command-not-found.nix
   ./programs/dconf.nix
   ./programs/environment.nix
-  ./programs/info.nix
   ./programs/ibus.nix
   ./programs/kbdlight.nix
   ./programs/light.nix
@@ -72,9 +72,9 @@
   ./programs/ssmtp.nix
   ./programs/uim.nix
   ./programs/venus.nix
-  ./programs/virtualbox-host.nix
   ./programs/wvdial.nix
   ./programs/freetds.nix
+  ./programs/xfs_quota.nix
   ./programs/zsh/zsh.nix
   ./rename.nix
   ./security/apparmor.nix
@@ -84,6 +84,7 @@
   ./security/grsecurity.nix
   ./security/pam.nix
   ./security/pam_usb.nix
+  ./security/pam_mount.nix
   ./security/polkit.nix
   ./security/prey.nix
   ./security/rngd.nix
@@ -130,6 +131,7 @@
   ./services/databases/opentsdb.nix
   ./services/databases/postgresql.nix
   ./services/databases/redis.nix
+  ./services/databases/riak.nix
   ./services/databases/virtuoso.nix
   ./services/desktops/accountsservice.nix
   ./services/desktops/geoclue2.nix
@@ -188,12 +190,14 @@
   ./services/misc/cpuminer-cryptonight.nix
   ./services/misc/cgminer.nix
   ./services/misc/confd.nix
+  ./services/misc/devmon.nix
   ./services/misc/dictd.nix
   ./services/misc/disnix.nix
   ./services/misc/docker-registry.nix
   ./services/misc/etcd.nix
   ./services/misc/felix.nix
   ./services/misc/folding-at-home.nix
+  ./services/misc/gitit.nix
   ./services/misc/gitlab.nix
   ./services/misc/gitolite.nix
   ./services/misc/gpsd.nix
@@ -216,6 +220,8 @@
   ./services/misc/ripple-data-api.nix
   ./services/misc/rogue.nix
   ./services/misc/siproxd.nix
+  ./services/misc/subsonic.nix
+  ./services/misc/sundtek.nix
   ./services/misc/svnserve.nix
   ./services/misc/synergy.nix
   ./services/misc/uhub.nix
@@ -233,6 +239,7 @@
   ./services/monitoring/nagios.nix
   ./services/monitoring/riemann.nix
   ./services/monitoring/riemann-dash.nix
+  ./services/monitoring/riemann-tools.nix
   ./services/monitoring/scollector.nix
   ./services/monitoring/smartd.nix
   ./services/monitoring/statsd.nix
@@ -272,15 +279,18 @@
   ./services/networking/dnsmasq.nix
   ./services/networking/docker-registry-server.nix
   ./services/networking/ejabberd.nix
+  ./services/networking/fan.nix
   ./services/networking/firefox/sync-server.nix
   ./services/networking/firewall.nix
   ./services/networking/flashpolicyd.nix
   ./services/networking/freenet.nix
+  ./services/networking/gateone.nix
   ./services/networking/git-daemon.nix
   ./services/networking/gnunet.nix
   ./services/networking/gogoclient.nix
   ./services/networking/gvpe.nix
   ./services/networking/haproxy.nix
+  ./services/networking/heyefi.nix
   ./services/networking/hostapd.nix
   ./services/networking/i2pd.nix
   ./services/networking/i2p.nix
@@ -320,6 +330,8 @@
   ./services/networking/searx.nix
   ./services/networking/seeks.nix
   ./services/networking/skydns.nix
+  ./services/networking/shout.nix
+  ./services/networking/softether.nix
   ./services/networking/spiped.nix
   ./services/networking/sslh.nix
   ./services/networking/ssh/lshd.nix
@@ -333,6 +345,7 @@
   ./services/networking/tftpd.nix
   ./services/networking/tlsdated.nix
   ./services/networking/tox-bootstrapd.nix
+  ./services/networking/tvheadend.nix
   ./services/networking/unbound.nix
   ./services/networking/unifi.nix
   ./services/networking/vsftpd.nix
@@ -341,6 +354,7 @@
   ./services/networking/wicd.nix
   ./services/networking/wpa_supplicant.nix
   ./services/networking/xinetd.nix
+  ./services/networking/zerotierone.nix
   ./services/networking/znc.nix
   ./services/printing/cupsd.nix
   ./services/scheduling/atd.nix
@@ -380,6 +394,7 @@
   ./services/web-servers/lighttpd/gitweb.nix
   ./services/web-servers/nginx/default.nix
   ./services/web-servers/phpfpm.nix
+  ./services/web-servers/shellinabox.nix
   ./services/web-servers/tomcat.nix
   ./services/web-servers/uwsgi.nix
   ./services/web-servers/varnish/default.nix
@@ -474,6 +489,7 @@
   ./virtualisation/openvswitch.nix
   ./virtualisation/parallels-guest.nix
   ./virtualisation/virtualbox-guest.nix
+  ./virtualisation/virtualbox-host.nix
   ./virtualisation/vmware-guest.nix
   ./virtualisation/xen-dom0.nix
 ]

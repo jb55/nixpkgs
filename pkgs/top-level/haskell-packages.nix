@@ -31,15 +31,18 @@ rec {
     ghc784 = callPackage ../development/compilers/ghc/7.8.4.nix ({ ghc = compiler.ghc742Binary; } // stdenv.lib.optionalAttrs stdenv.isDarwin {
       libiconv = pkgs.darwin.libiconv;
     });
-    ghc7101 = callPackage ../development/compilers/ghc/7.10.1.nix ({ ghc = compiler.ghc784; } // stdenv.lib.optionalAttrs stdenv.isDarwin {
+    ghc7102 = callPackage ../development/compilers/ghc/7.10.2.nix ({ ghc = compiler.ghc784; inherit (packages.ghc784) hscolour; } // stdenv.lib.optionalAttrs stdenv.isDarwin {
       libiconv = pkgs.darwin.libiconv;
     });
     ghcHEAD = callPackage ../development/compilers/ghc/head.nix ({ inherit (packages.ghc784) ghc alex happy; } // stdenv.lib.optionalAttrs stdenv.isDarwin {
       libiconv = pkgs.darwin.libiconv;
     });
+    ghcNokinds = callPackage ../development/compilers/ghc/nokinds.nix ({ inherit (packages.ghc784) ghc alex happy; } // stdenv.lib.optionalAttrs stdenv.isDarwin {
+      libiconv = pkgs.darwin.libiconv;
+    });
 
-    ghcjs = packages.ghc7101.callPackage ../development/compilers/ghcjs {
-      ghc = compiler.ghc7101;
+    ghcjs = packages.ghc7102.callPackage ../development/compilers/ghcjs {
+      ghc = compiler.ghc7102;
     };
 
     jhc = callPackage ../development/compilers/jhc {
@@ -80,13 +83,17 @@ rec {
       ghc = compiler.ghc784;
       packageSetConfig = callPackage ../development/haskell-modules/configuration-ghc-7.8.x.nix { };
     };
-    ghc7101 = callPackage ../development/haskell-modules {
-      ghc = compiler.ghc7101;
+    ghc7102 = callPackage ../development/haskell-modules {
+      ghc = compiler.ghc7102;
       packageSetConfig = callPackage ../development/haskell-modules/configuration-ghc-7.10.x.nix { };
     };
     ghcHEAD = callPackage ../development/haskell-modules {
       ghc = compiler.ghcHEAD;
       packageSetConfig = callPackage ../development/haskell-modules/configuration-ghc-head.nix { };
+    };
+    ghcNokinds = callPackage ../development/haskell-modules {
+      ghc = compiler.ghcNokinds;
+      packageSetConfig = callPackage ../development/haskell-modules/configuration-ghc-nokinds.nix { };
     };
     ghcjs = callPackage ../development/haskell-modules {
       ghc = compiler.ghcjs;

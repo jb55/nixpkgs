@@ -1,5 +1,8 @@
-import ./make-test.nix {
+import ./make-test.nix ({ pkgs, ...} : {
   name = "lightdm";
+  meta = with pkgs.stdenv.lib.maintainers; {
+    maintainers = [ aszlig ];
+  };
 
   machine = { lib, ... }: {
     imports = [ ./common/user-account.nix ];
@@ -19,7 +22,6 @@ import ./make-test.nix {
     $machine->waitForText(qr/${user.description}/);
     $machine->screenshot("lightdm");
     $machine->sendChars("${user.password}\n");
-    $machine->waitForText(qr/^\d{2}(?::\d{2}){2} (?:AM|PM)$/m);
-    $machine->screenshot("session");
+    $machine->waitForWindow("^IceWM ");
   '';
-}
+})

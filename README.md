@@ -33,13 +33,12 @@ For pull-requests, please rebase onto nixpkgs `master`.
 * [Manual (NixOS)](https://nixos.org/nixos/manual/)
 * [Continuous package builds for unstable/master](https://hydra.nixos.org/jobset/nixos/trunk-combined)
 * [Continuous package builds for 14.12 release](https://hydra.nixos.org/jobset/nixos/release-14.12)
+* [Continuous package builds for 15.09 release](https://hydra.nixos.org/jobset/nixos/release-15.09)
 * [Tests for unstable/master](https://hydra.nixos.org/job/nixos/trunk-combined/tested#tabs-constituents)
 * [Tests for 14.12 release](https://hydra.nixos.org/job/nixos/release-14.12/tested#tabs-constituents)
+* [Tests for 15.09 release](https://hydra.nixos.org/job/nixos/release-15.09/tested#tabs-constituents)
 
 Communication:
 
 * [Mailing list](http://lists.science.uu.nl/mailman/listinfo/nix-dev)
 * [IRC - #nixos on freenode.net](irc://irc.freenode.net/#nixos)
-
----
-[![Throughput Graph](https://graphs.waffle.io/nixos/nixpkgs/throughput.svg)](https://waffle.io/nixos/nixpkgs/metrics)

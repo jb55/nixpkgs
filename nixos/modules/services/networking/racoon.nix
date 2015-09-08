@@ -6,7 +6,7 @@ let
   cfg = config.services.racoon;
 in {
   options.services.racoon = {
-    enable = mkEnableOption "Whether to enable racoon.";
+    enable = mkEnableOption "racoon";
 
     config = mkOption {
       description = "Contents of racoon configuration file.";
@@ -36,7 +36,10 @@ in {
         Type = "forking";
         Restart = "always";
       };
-      preStart = "rm /var/run/racoon.pid || true";
+      preStart = ''
+        rm /var/run/racoon.pid || true
+        mkdir -p /var/racoon
+      '';
     };
   };
 }
