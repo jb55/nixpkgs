@@ -1275,6 +1275,10 @@ let
 
   detox = callPackage ../tools/misc/detox { };
 
+  devilspie2 = callPackage ../applications/misc/devilspie2 {
+    gtk = gtk3;
+  };
+
   ddccontrol = callPackage ../tools/misc/ddccontrol { };
 
   ddccontrol-db = callPackage ../data/misc/ddccontrol-db { };
@@ -1805,6 +1809,8 @@ let
 
   gummiboot = callPackage ../tools/misc/gummiboot { };
 
+  gup = callPackage ../development/tools/build-managers/gup {};
+
   gupnp = callPackage ../development/libraries/gupnp {
     inherit (gnome) libsoup;
   };
@@ -1921,9 +1927,7 @@ let
 
   imapproxy = callPackage ../tools/networking/imapproxy { };
 
-  imapsync = callPackage ../tools/networking/imapsync {
-    inherit (perlPackages) MailIMAPClient;
-  };
+  imapsync = callPackage ../tools/networking/imapsync { };
 
   imgurbash = callPackage ../tools/graphics/imgurbash { };
 
@@ -3203,6 +3207,8 @@ let
 
   tlsdate = callPackage ../tools/networking/tlsdate { };
 
+  tmate = callPackage ../tools/misc/tmate { };
+
   tmpwatch = callPackage ../tools/misc/tmpwatch  { };
 
   tmux = callPackage ../tools/misc/tmux { };
@@ -4126,26 +4132,16 @@ let
 
   path64 = callPackage ../development/compilers/path64 { };
 
-  openjdk7-bootstrap = callPackage ../development/compilers/openjdk/bootstrap.nix { version = "7"; };
-  openjdk8-bootstrap = callPackage ../development/compilers/openjdk/bootstrap.nix { version = "8"; };
-
-  openjdk7-make-bootstrap = callPackage ../development/compilers/openjdk/make-bootstrap.nix {
-    openjdk = openjdk7.override { minimal = true; };
-  };
-  openjdk8-make-bootstrap = callPackage ../development/compilers/openjdk/make-bootstrap.nix {
-    openjdk = openjdk8.override { minimal = true; };
-  };
-
   openjdk-darwin = callPackage ../development/compilers/openjdk-darwin { };
 
   openjdk7 = callPackage ../development/compilers/openjdk {
-    bootjdk = openjdk7-bootstrap;
+    bootjdk = callPackage ../development/compilers/openjdk/bootstrap.nix { version = "7"; };
   };
   openjdk7_jdk = openjdk7 // { outputs = [ "out" ]; };
   openjdk7_jre = openjdk7.jre // { outputs = [ "jre" ]; };
 
   openjdk8 = callPackage ../development/compilers/openjdk/openjdk8.nix {
-    bootjdk = openjdk8-bootstrap;
+    bootjdk = callPackage ../development/compilers/openjdk/bootstrap.nix { version = "8"; };
   };
   openjdk8_jdk = openjdk8 // { outputs = [ "out" ]; };
   openjdk8_jre = openjdk8.jre // { outputs = [ "jre" ]; };
@@ -5226,6 +5222,7 @@ let
   spidermonkey_185 = callPackage ../development/interpreters/spidermonkey/185-1.0.0.nix { };
   spidermonkey_17 = callPackage ../development/interpreters/spidermonkey/17.0.nix { };
   spidermonkey_24 = callPackage ../development/interpreters/spidermonkey/24.2.nix { };
+  spidermonkey_31 = callPackage ../development/interpreters/spidermonkey/31.5.nix { };
 
   supercollider = callPackage ../development/interpreters/supercollider {
     gcc = gcc48; # doesn't build with gcc49
@@ -7970,6 +7967,8 @@ let
 
   ptlib = callPackage ../development/libraries/ptlib {};
 
+  pugixml = callPackage ../development/libraries/pugixml { };
+
   re2 = callPackage ../development/libraries/re2 { };
 
   qca2 = callPackage ../development/libraries/qca2 { qt = qt4; };
@@ -8064,7 +8063,9 @@ let
 
   readosm = callPackage ../development/libraries/readosm { };
 
-  lambdabot = callPackage ../development/tools/haskell/lambdabot { };
+  lambdabot = callPackage ../development/tools/haskell/lambdabot {
+    haskell-lib = haskell.lib;
+  };
 
   leksah = callPackage ../development/tools/haskell/leksah {
     inherit (haskellPackages) ghcWithPackages;
@@ -10337,9 +10338,7 @@ let
 
   untie = callPackage ../os-specific/linux/untie { };
 
-  upower-old = callPackage ../os-specific/linux/upower { };
-
-  upower = callPackage ../os-specific/linux/upower/0.99.nix { };
+  upower = callPackage ../os-specific/linux/upower { };
 
   upstart = callPackage ../os-specific/linux/upstart { };
 
@@ -10888,6 +10887,9 @@ let
   bibletime = callPackage ../applications/misc/bibletime { };
 
   bitlbee = callPackage ../applications/networking/instant-messengers/bitlbee { };
+  bitlbee-plugins = callPackage ../applications/networking/instant-messengers/bitlbee/plugins.nix { };
+
+  bitlbee-facebook = callPackage ../applications/networking/instant-messengers/bitlbee-facebook { };
 
   bitmeter = callPackage ../applications/audio/bitmeter { };
 
@@ -11608,7 +11610,7 @@ let
     inherit pkgs;
   });
 
-  inherit (gitAndTools) git gitFull gitSVN git-cola svn2git;
+  inherit (gitAndTools) git gitFull gitSVN git-cola svn2git git-radar;
 
   gitMinimal = git.override {
     withManual = false;
@@ -12305,6 +12307,8 @@ let
 
   pig = callPackage ../applications/networking/cluster/pig { };
 
+  playonlinux = callPackage ../applications/misc/playonlinux { };
+
   shotcut = callPackage ../applications/video/shotcut { mlt = mlt-qt5; };
 
   smplayer = callPackage ../applications/video/smplayer { };
@@ -12944,7 +12948,8 @@ let
 
   symlinks = callPackage ../tools/system/symlinks { };
 
-  syncthing = goPackages.syncthing.bin // { outputs = [ "bin" ]; };
+  # syncthing is pinned to go1.4 until https://github.com/golang/go/issues/12301 is resolved
+  syncthing = go14Packages.syncthing.bin // { outputs = [ "bin" ]; };
 
   # linux only by now
   synergy = callPackage ../applications/misc/synergy { };
@@ -13083,6 +13088,8 @@ let
   trezor-bridge = callPackage ../applications/networking/browsers/mozilla-plugins/trezor { };
 
   tribler = callPackage ../applications/networking/p2p/tribler { };
+
+  github-release = callPackage ../development/tools/github/github-release { };
 
   tuxguitar = callPackage ../applications/editors/music/tuxguitar { };
 
@@ -13645,6 +13652,8 @@ let
   zynaddsubfx = callPackage ../applications/audio/zynaddsubfx { };
 
   ### GAMES
+
+  airstrike = callPackage ../games/airstrike { };
 
   alienarena = callPackage ../games/alienarena { };
 
@@ -14567,6 +14576,12 @@ let
 
   iprover = callPackage ../applications/science/logic/iprover {};
 
+  jonprl = callPackage ../applications/science/logic/jonprl {
+    smlnj = if stdenv.isDarwin
+      then smlnjBootstrap
+      else smlnj;
+  };
+
   lean = callPackage ../applications/science/logic/lean {};
 
   leo2 = callPackage ../applications/science/logic/leo2 {};
@@ -15028,6 +15043,8 @@ let
   refind = callPackage ../tools/bootloaders/refind { };
 
   xlockmore = callPackage ../misc/screensavers/xlockmore { };
+
+  xtrlock-pam = callPackage ../misc/screensavers/xtrlock-pam { };
 
   sails = callPackage ../misc/sails { };
 

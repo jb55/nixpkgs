@@ -40,73 +40,66 @@ buildFHSUserEnv {
       pkgs.gst_all_1.gstreamer
       pkgs.gst_all_1.gst-plugins-ugly
     ] ++ lib.optionals withRuntime [
-      # Without these it silently fails
-      pkgs.xlibs.libXinerama
-      pkgs.xlibs.libXdamage
-      pkgs.xlibs.libXcursor
-      pkgs.xlibs.libXrender
-      pkgs.xlibs.libXScrnSaver
-      pkgs.xlibs.libXi
-      pkgs.xlibs.libSM
-      pkgs.xlibs.libICE
-      pkgs.gnome2.GConf
-      pkgs.freetype
-      pkgs.openalSoft
-      pkgs.curl
-      pkgs.nspr
-      pkgs.nss
-      pkgs.fontconfig
-      pkgs.cairo
-      pkgs.pango
-      pkgs.alsaLib
-      pkgs.expat
-      pkgs.dbus
-      pkgs.cups
-      pkgs.libcap
-      pkgs.SDL2
-      pkgs.libusb1
-      pkgs.dbus_glib
-      pkgs.libav
-      pkgs.atk
-      # Only libraries are needed from those two
-      pkgs.udev182
-      pkgs.networkmanager098
-
-      # Verified games requirements
-      pkgs.xlibs.libXmu
-      pkgs.xlibs.libxcb
-      pkgs.xlibs.libpciaccess
-      pkgs.mesa_glu
-      pkgs.libuuid
-      pkgs.libogg
-      pkgs.libvorbis
       pkgs.SDL
+      pkgs.SDL2
       pkgs.SDL2_image
-      pkgs.glew110
-      pkgs.openssl
-      pkgs.libidn
-
-      # Other things from runtime
-      pkgs.xlibs.libXinerama
-      pkgs.flac
-      pkgs.freeglut
-      pkgs.libjpeg
-      pkgs.libpng12
-      pkgs.libsamplerate
-      pkgs.libmikmod
-      pkgs.libtheora
-      pkgs.pixman
-      pkgs.speex
-      pkgs.SDL_image
-      pkgs.SDL_ttf
-      pkgs.SDL_mixer
+      pkgs.SDL2_mixer
       pkgs.SDL2_net
       pkgs.SDL2_ttf
-      pkgs.SDL2_mixer
-      pkgs.gstreamer
+      pkgs.SDL_image
+      pkgs.SDL_mixer
+      pkgs.SDL_ttf
+      pkgs.alsaLib
+      pkgs.atk
+      pkgs.cairo
+      pkgs.cups
+      pkgs.curl
+      pkgs.dbus
+      pkgs.dbus_glib
+      pkgs.expat
+      pkgs.flac
+      pkgs.fontconfig
+      pkgs.freeglut
+      pkgs.freetype
+      pkgs.glew110
+      pkgs.gnome2.GConf
       pkgs.gst_plugins_base
+      pkgs.gstreamer
+      pkgs.libav
+      pkgs.libcap
+      pkgs.libdrm
+      pkgs.libidn
+      pkgs.libjpeg
+      pkgs.libmikmod
+      pkgs.libogg
+      pkgs.libpng12
+      pkgs.libsamplerate
+      pkgs.libtheora
+      pkgs.libusb1
+      pkgs.libuuid
+      pkgs.libvorbis
+      pkgs.mesa_glu
+      pkgs.networkmanager098
+      pkgs.nspr
+      pkgs.nss
       pkgs.openal
-
+      pkgs.openalSoft
+      pkgs.openssl
+      pkgs.pango
+      pkgs.pixman
+      pkgs.speex
+      pkgs.udev182
+      pkgs.xlibs.libICE
+      pkgs.xlibs.libSM
+      pkgs.xlibs.libXScrnSaver
+      pkgs.xlibs.libXcursor
+      pkgs.xlibs.libXdamage
+      pkgs.xlibs.libXi
+      pkgs.xlibs.libXinerama
+      pkgs.xlibs.libXmu
+      pkgs.xlibs.libXrender
+      pkgs.xlibs.libpciaccess
+      pkgs.xlibs.libxcb
     ];
 
   extraBuildCommands = ''

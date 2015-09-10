@@ -755,6 +755,7 @@ self: super: {
   zlib = dontCheck super.zlib;
 
   # Override the obsolete version from Hackage with our more up-to-date copy.
+  nix-paths = self.callPackage ../tools/haskell/cabal2nix/nix-paths.nix {};
   cabal2nix = self.callPackage ../tools/haskell/cabal2nix/cabal2nix.nix {};
   hackage2nix = self.callPackage ../tools/haskell/cabal2nix/hackage2nix.nix {};
   language-nix = self.callPackage ../tools/haskell/cabal2nix/language-nix.nix {};
@@ -1014,8 +1015,5 @@ self: super: {
 
   # https://github.com/goldfirere/singletons/issues/122
   singletons = dontCheck super.singletons;
-
-  # https://github.com/vincenthz/hs-certificate/issues/62
-  x509-validation = dontHaddock super.x509-validation;
 
 }
