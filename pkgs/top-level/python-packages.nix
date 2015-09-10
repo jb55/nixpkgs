@@ -9,6 +9,7 @@ let
   isPy27 = python.majorVersion == "2.7";
   isPy33 = python.majorVersion == "3.3";
   isPy34 = python.majorVersion == "3.4";
+  isPy35 = python.majorVersion == "3.5";
   isPyPy = python.executable == "pypy";
   isPy3k = strings.substring 0 1 python.majorVersion == "3";
 
@@ -22,6 +23,7 @@ let
     if isPy27 then "python27" else
     if isPy33 then "python33" else
     if isPy34 then "python34" else
+    if isPy35 then "python35" else
     if isPyPy then "pypy" else "";
 
   modules = python.modules or {
@@ -34,7 +36,7 @@ let
 
   pythonPackages = modules // {
 
-  inherit python isPy26 isPy27 isPy33 isPy34 isPyPy isPy3k pythonName buildPythonPackage;
+  inherit python isPy26 isPy27 isPy33 isPy34 isPy35 isPyPy isPy3k pythonName buildPythonPackage;
 
   # helpers
 
@@ -2525,11 +2527,11 @@ let
   };
 
   pytest = buildPythonPackage rec {
-    name = "pytest-2.7.2";
+    name = "pytest-2.7.3";
 
     src = pkgs.fetchurl {
       url = "http://pypi.python.org/packages/source/p/pytest/${name}.tar.gz";
-      sha256 = "b30457f735420d0000d10a44bbd478cf03f8bf20e25bd77248f9bab40f4fd6a4";
+      sha256 = "1z4yi986f9n0p8qmzmn21m21m8j1x78hk3505f89baqm6pdw7afm";
     };
 
     preCheck = ''
@@ -2763,7 +2765,7 @@ let
     meta = {
       description = "Minimal task scheduling abstraction";
       homepage = "http://github.com/ContinuumIO/dask/";
-      licenses = licenses.bsd3;
+      license = licenses.bsd3;
       maintainers = with maintainers; [ fridh ];
     };
   };
@@ -3297,7 +3299,7 @@ let
     meta = {
       description = "Easy to use python subprocess interface";
       homepage = "https://github.com/ponty/EasyProcess";
-      licenses = licenses.bsdOriginal;
+      license = licenses.bsdOriginal;
       maintainers = with maintainers; [ layus ];
     };
   };
@@ -3323,11 +3325,11 @@ let
 
 
   elasticsearchdsl = buildPythonPackage (rec {
-    name = "elasticsearch-dsl-0.0.4";
+    name = "elasticsearch-dsl-0.0.8";
 
     src = pkgs.fetchurl {
       url = "https://pypi.python.org/packages/source/e/elasticsearch-dsl/${name}.tar.gz";
-      sha256 = "0bz8p10qk7rz10glq9dm2nq9m1x6czzlqk518107x39gx18lm1a2";
+      sha256 = "0dd46s7g5l2b2jnjhcpcm721kcsnsqwngzik85jl5qbbcvnqqjzi";
     };
 
     buildInputs = with self; [ covCore dateutil elasticsearch mock pytest pytestcov unittest2 urllib3 pytz ];
@@ -3340,6 +3342,7 @@ let
       description = "Python client for Elasticsearch";
       homepage = https://github.com/elasticsearch/elasticsearch-dsl-py;
       license = licenses.asl20;
+      maintainers = with maintainers; [ desiderius ];
     };
   });
 
@@ -3753,6 +3756,10 @@ let
     };
 
     propagatedBuildInputs = with self; [ gdata ];
+  };
+
+  gst-python = callPackage ../development/libraries/gstreamer/python {
+    gst-plugins-base = pkgs.gst_all_1.gst-plugins-base;
   };
 
   gtimelog = buildPythonPackage rec {
@@ -5222,11 +5229,11 @@ let
   };
 
   deluge = buildPythonPackage rec {
-    name = "deluge-1.3.11";
+    name = "deluge-1.3.12";
 
     src = pkgs.fetchurl {
       url = "http://download.deluge-torrent.org/source/${name}.tar.bz2";
-      sha256 = "16681sg7yi03jqyifhalnw4vavb8sj94cisldal7nviai8dz9qc3";
+      sha256 = "14rwc5k7q0d36b4jxnmxgnyvx9lnmaifxpyv0z07ymphlfr4amsn";
     };
 
     propagatedBuildInputs = with self; [
@@ -5244,7 +5251,7 @@ let
       homepage = http://deluge-torrent.org;
       description = "Torrent client";
       license = licenses.gpl3Plus;
-      maintainers = with maintainers; [ iElectric ];
+      maintainers = with maintainers; [ iElectric ebzzry ];
       platforms = platforms.all;
     };
   };
@@ -5441,6 +5448,25 @@ let
       description = "A helper class for handling configuration defaults of packaged apps gracefully";
       homepage = http://django-appconf.readthedocs.org/;
       license = licenses.bsd2;
+      maintainers = with maintainers; [ desiderius ];
+    };
+  };
+
+  django_compressor = buildPythonPackage rec {
+    name = "django-compressor-${version}";
+    version = "1.5";
+
+    src = pkgs.fetchurl {
+      url = "https://pypi.python.org/packages/source/d/django_compressor/django_compressor-${version}.tar.gz";
+      sha256 = "0bp2acagc6b1mmcajlmjf5vvp6zj429bq7p2wks05n47pwfzv281";
+    };
+
+    propagatedBuildInputs = with self; [ django_appconf ];
+
+    meta = {
+      description = "Compresses linked and inline JavaScript or CSS into single cached files";
+      homepage = http://django-compressor.readthedocs.org/en/latest/;
+      license = licenses.mit;
       maintainers = with maintainers; [ desiderius ];
     };
   };
@@ -7107,7 +7133,7 @@ let
 
     propagatedBuildInputs = with self; [
       requests2 # Needs to be first;
-      cgroup-utils docker-custom docutils lti multiprocessing pygments pymongo
+      cgroup-utils docker-custom docutils lti pygments pymongo
       pyyaml rpyc selenium sh simpleldap tidylib virtual-display web
       websocket_client
     ];
@@ -7116,6 +7142,12 @@ let
       url = "https://pypi.python.org/packages/source/I/INGInious/INGInious-${version}.tar.gz";
       md5 = "40474dd6b6d4fc26e47a1d9c77bcf943";
     };
+
+    # Remove multiprocessing
+    # https://github.com/UCL-INGI/INGInious/issues/73
+    patchPhase = ''
+      sed -i '34d' setup.py
+    '';
 
     meta = {
       description = "An intelligent grader that allows secured and automated testing of code made by students.";
@@ -7677,11 +7709,11 @@ let
 
 
   libcloud = buildPythonPackage (rec {
-    name = "libcloud-0.14.1";
+    name = "libcloud-0.18.0";
 
     src = pkgs.fetchurl {
-      url = https://pypi.python.org/packages/source/a/apache-libcloud/apache-libcloud-0.14.1.tar.bz2;
-      sha256 = "1l6190pjv54c7y8pzr089ij727qv7bqhhaznr2mkvimgr1wzsql5";
+      url = https://pypi.python.org/packages/source/a/apache-libcloud/apache-libcloud-0.18.0.tar.bz2;
+      sha256 = "0ahdp14ddly074qg5cksxdhqaws0kj445xmhz1y7lzspsp6fk1xg";
     };
 
     buildInputs = with self; [ mock ];
@@ -7776,7 +7808,43 @@ let
       description = "A load testing tool";
     };
   };
+  
+  llvmlite = buildPythonPackage rec {
+    name = "llvmlite-${version}";
+    version = "0.7.0";
+    
+    disabled = isPyPy;
+    
+    src = pkgs.fetchurl { 
+      url = "https://pypi.python.org/packages/source/l/llvmlite/${name}.tar.gz";
+      sha256 = "6d780980da05d2d82465991bce42c1b4625018d67feae17c672c6a9d5ad0bb1a";
+    };
 
+    llvm = pkgs.llvm;
+    
+    propagatedBuildInputs = with self; [ llvm ] ++ optional (!isPy34) enum34;
+
+    # Disable static linking
+    # https://github.com/numba/llvmlite/issues/93
+    patchPhase = ''
+      substituteInPlace ffi/Makefile.linux --replace "-static-libstdc++" ""
+    '';
+    # Set directory containing llvm-config binary
+    preConfigure = ''
+      export LLVM_CONFIG=${llvm}/bin/llvm-config
+    '';
+    checkPhase = ''
+      ${self.python.executable} runtests.py
+    '';
+    
+    meta = {
+      description = "A lightweight LLVM python binding for writing JIT compilers";
+      homepage = "http://llvmlite.pydata.org/";
+      license = licenses.bsd2;
+      maintainers = with maintainers; [ fridh ];
+    };
+  };
+  
   lockfile = buildPythonPackage rec {
     name = "lockfile-0.9.1";
 
@@ -7893,11 +7961,11 @@ let
 
 
   Mako = buildPythonPackage rec {
-    name = "Mako-1.0.1";
+    name = "Mako-1.0.2";
 
     src = pkgs.fetchurl {
       url = "http://pypi.python.org/packages/source/M/Mako/${name}.tar.gz";
-      md5 = "9f0aafd177b039ef67b90ea350497a54";
+      sha256 = "17k7jy3byi4hj6ksszib6gxbf6n7snnnirnbrdldn848abjc4l15";
     };
 
     buildInputs = with self; [ markupsafe nose mock ];
@@ -8475,15 +8543,6 @@ let
       description = "A relatively sane approach to multiple dispatch in Python";
       license = licenses.bsd3;
       maintainers = with maintainers; [ fridh ];
-    };
-  };
-
-  multiprocessing = buildPythonPackage rec {
-    name = "multiprocessing-2.6.2.1";
-
-    src = pkgs.fetchurl {
-      url = "https://pypi.python.org/packages/source/m/multiprocessing/${name}.tar.gz";
-      md5 = "5cc484396c040102116ccc2355379c72";
     };
   };
 
@@ -9159,6 +9218,11 @@ let
 
     buildInputs = with self; [ python pkgs.notmuch ];
 
+    postPatch = ''
+      sed -i -e '/CDLL/s@"libnotmuch\.@"${pkgs.notmuch}/lib/libnotmuch.@' \
+        notmuch/globals.py
+    '';
+
     meta = {
       description = "A Python wrapper around notmuch";
       homepage = http://notmuchmail.org/;
@@ -9178,6 +9242,32 @@ let
     };
   };
 
+  numba = buildPythonPackage rec {
+    version = "0.21.0";
+    name = "numba-${version}";
+    
+    src = pkgs.fetchurl {
+      url = "https://pypi.python.org/packages/source/n/numba/${name}.tar.gz";
+      sha256 = "1806d2f6ad49ad891e9ac6fed0cc0b0489cbfcd9ba2dc81081c1c30091e77604";
+    };
+    
+    propagatedBuildInputs = with self; [numpy llvmlite argparse] ++ optional (!isPy3k) funcsigs ++ optional (isPy27 || isPy33) singledispatch;
+    # Future work: add Cuda support.
+    #propagatedBuildInputs = with self; [numpy llvmlite argparse pkgs.cudatoolkit6];
+    #buildPhase = ''
+    #  export NUMBAPRO_CUDA_DRIVER=
+    #  export NUMBAPRO_NVVM=${pkgs.cudatoolkit6}
+    #  export NUMBAPRO_LIBDEVICE=
+    #'';
+
+    meta = {
+      homepage = http://numba.pydata.org/;
+      license = licenses.bsd2;
+      description = "Compiling Python code using LLVM";
+      maintainers = with maintainers; [ fridh ];
+    };
+  };
+  
   numexpr = buildPythonPackage rec {
     version = "2.4.3";
     name = "numexpr-${version}";
@@ -9232,7 +9322,7 @@ let
       sha256 = "0apgmsk9jlaphb2dp1zaxqzdxkf69h1y3iw2d1pcnkj31cmmypij";
     };
 
-    disabled = isPyPy;  # WIP
+    disabled = isPyPy || isPy35;  # WIP
 
     preConfigure = ''
       sed -i 's/-faltivec//' numpy/distutils/system_info.py
@@ -9929,11 +10019,11 @@ let
 
   pep8 = buildPythonPackage rec {
     name = "pep8-${version}";
-    version = "1.5.7";
+    version = "1.6.2";
 
     src = pkgs.fetchurl {
       url = "http://pypi.python.org/packages/source/p/pep8/${name}.tar.gz";
-      md5 = "f6adbdd69365ecca20513c709f9b7c93";
+      sha256 = "1zybkcdw1sx84dvkfss96nhykqg9bc0cdpwpl4k9wlxm61bf7dxq";
     };
 
     meta = {
@@ -10231,15 +10321,19 @@ let
 
 
   pillow = buildPythonPackage rec {
-    name = "Pillow-2.3.0";
+    name = "Pillow-2.9.0";
 
     src = pkgs.fetchurl {
       url = "http://pypi.python.org/packages/source/P/Pillow/${name}.zip";
-      md5 = "56b6614499aacb7d6b5983c4914daea7";
+      sha256 = "1mal92cwh85z6zqx7lrmg0dbqb2gw2cbb2fm6xh0fivmszz8vnyi";
     };
 
+    # Check is disabled because of assertion errors, see
+    # https://github.com/python-pillow/Pillow/issues/1259
+    doCheck = false;
+
     buildInputs = with self; [
-      pkgs.freetype pkgs.libjpeg pkgs.zlib pkgs.libtiff pkgs.libwebp pkgs.tcl ]
+      pkgs.freetype pkgs.libjpeg pkgs.zlib pkgs.libtiff pkgs.libwebp pkgs.tcl nose ]
       ++ optionals (isPy26 || isPy27 || isPy33 || isPyPy) [ pkgs.lcms2 ]
       ++ optionals (isPyPy) [ pkgs.tk pkgs.xlibs.libX11 ];
 
@@ -11125,11 +11219,11 @@ let
   };
 
   pyflakes = buildPythonPackage rec {
-    name = "pyflakes-0.8.1";
+    name = "pyflakes-0.9.2";
 
     src = pkgs.fetchurl {
       url = "http://pypi.python.org/packages/source/p/pyflakes/${name}.tar.gz";
-      md5 = "905fe91ad14b912807e8fdc2ac2e2c23";
+      sha256 = "0pvawddspdq0y22dbraq5gld9qr6rwa7zhmpfhl2b7v9rqiiqs82";
     };
 
     buildInputs = with self; [ unittest2 ];
@@ -11461,27 +11555,16 @@ let
 
   pyparted = buildPythonPackage rec {
     name = "pyparted-${version}";
-    version = "3.10";
+    version = "3.10.7";
     disabled = isPyPy;
 
     src = pkgs.fetchurl {
-      url = "https://fedorahosted.org/releases/p/y/pyparted/${name}.tar.gz";
-      sha256 = "17wq4invmv1nfazaksf59ymqyvgv3i8h4q03ry2az0s9lldyg3dv";
+      url = "https://github.com/rhinstaller/pyparted/archive/v${version}.tar.gz";
+      sha256 = "0c9ljrdggwawd8wdzqqqzrna9prrlpj6xs59b0vkxzip0jkf652r";
     };
 
-    patches = singleton (pkgs.fetchurl {
-      url = "https://www.redhat.com/archives/pyparted-devel/"
-          + "2014-April/msg00000.html";
-      postFetch = ''
-        sed -i -ne '/<!--X-Body-of-Message-->/,/<!--X-Body-of-Message-End-->/ {
-          s/^<[^>]*>//; /^$/!p
-        }' "$downloadedFile"
-      '';
-      sha256 = "1lakhz3nvx0qacn90bj1nq13zqxphiw4d9dsc44gwa8nj24j2zws";
-    });
-
     postPatch = ''
-      sed -i -e 's|/sbin/mke2fs|${pkgs.e2fsprogs}&|' tests/baseclass.py
+      sed -i -e 's|mke2fs|${pkgs.e2fsprogs}/bin/mke2fs|' tests/baseclass.py
       sed -i -e '
         s|e\.path\.startswith("/tmp/temp-device-")|"temp-device-" in e.path|
       ' tests/test__ped_ped.py
@@ -12139,6 +12222,27 @@ let
     meta = {
       description = "Python bindings for Subversion";
       homepage = "http://pysvn.tigris.org/";
+    };
+  };
+
+  python-wifi = buildPythonPackage rec {
+    name = "python-wifi-${version}";
+    version = "0.6.0";
+    disabled = ! (isPy26 || isPy27 );
+
+    src = pkgs.fetchurl {
+      url = "https://pypi.python.org/packages/source/p/python-wifi/${name}.tar.bz2";
+      md5 = "f9d520a8c17b0dfffce95a8a7efba7dd";
+    };
+
+    meta = {
+      inherit version;
+      description = "Read & write wireless card capabilities using the Linux Wireless Extensions";
+      homepage = http://pythonwifi.tuxfamily.org/;
+      # From the README: "pythonwifi is licensed under LGPLv2+, however, the
+      # examples (e.g. iwconfig.py and iwlist.py) are licensed under GPLv2+."
+      license = with licenses; [ lgpl2Plus gpl2Plus ];
+      maintainers = with maintainers; [ nckx ];
     };
   };
 
@@ -13999,7 +14103,7 @@ let
 
   sqlalchemy = self.sqlalchemy9.override rec {
     name = "SQLAlchemy-0.7.10";
-    disabled = isPy34;
+    disabled = isPy34 || isPy35;
     doCheck = !isPyPy;
 
     src = pkgs.fetchurl {
@@ -14018,7 +14122,7 @@ let
 
   sqlalchemy8 = self.sqlalchemy9.override rec {
     name = "SQLAlchemy-0.8.7";
-    disabled = isPy34;
+    disabled = isPy34 || isPy35;
     doCheck = !isPyPy;
 
     src = pkgs.fetchurl {
@@ -15492,11 +15596,13 @@ let
 
   wxPython = self.wxPython28;
 
-  wxPython28 = callPackage ../development/python-modules/wxPython/2.8.nix {
+  wxPython28 = import ../development/python-modules/wxPython/2.8.nix {
+    inherit callPackage;
     wxGTK = pkgs.wxGTK28;
   };
 
-  wxPython30 = callPackage ../development/python-modules/wxPython/3.0.nix {
+  wxPython30 = import ../development/python-modules/wxPython/3.0.nix {
+    inherit callPackage;
     wxGTK = pkgs.wxGTK30;
   };
 
@@ -15781,15 +15887,13 @@ let
 
 
   BTrees = self.buildPythonPackage rec {
-    name = "BTrees-4.0.8";
-
-    patches = [ ./../development/python-modules/btrees_interger_overflow.patch ];
+    name = "BTrees-4.1.4";
 
     propagatedBuildInputs = with self; [ persistent zope_interface transaction ];
 
     src = pkgs.fetchurl {
       url = "https://pypi.python.org/packages/source/B/BTrees/${name}.tar.gz";
-      md5 = "7f5df4cf8dd50fb0c584c0929a406c92";
+      sha256 = "1avvhkd7rvp3rzhw20v6ank8a8m9a1lmh99c4gjjsa1ry0zsri3y";
     };
 
     meta = {
@@ -16200,11 +16304,11 @@ let
 
   zope_testing = buildPythonPackage rec {
     name = "zope.testing-${version}";
-    version = "4.1.3";
+    version = "4.5.0";
 
     src = pkgs.fetchurl {
       url = "http://pypi.python.org/packages/source/z/zope.testing/${name}.tar.gz";
-      md5 = "6c73c5b668a67fdc116a25b884058ed9";
+      sha256 = "1yvglxhzvhl45mndvn9gskx2ph30zz1bz7rrlyfs62fv2pvih90s";
     };
 
     doCheck = !isPyPy;
@@ -16703,12 +16807,18 @@ let
 
 
   unidecode = buildPythonPackage rec {
-    name = "Unidecode-0.04.12";
+    name = "Unidecode-0.04.18";
 
     src = pkgs.fetchurl {
       url = "http://pypi.python.org/packages/source/U/Unidecode/${name}.tar.gz";
-      md5 = "351dc98f4512bdd2e93f7a6c498730eb";
+      sha256 = "12hhblqy1ajvidm38im4171x4arg83pfmziyn53nizp29p3m14gi";
     };
+
+    preBuild = ''
+      export LC_ALL="en_US.UTF-8"
+    '';
+
+    buildInputs = [ pkgs.glibcLocales ];
 
     meta = {
       homepage = http://pypi.python.org/pypi/Unidecode/;
@@ -17040,7 +17150,7 @@ let
   IMAPClient = buildPythonPackage rec {
     name = "IMAPClient-${version}";
     version = "0.11";
-    disabled = isPy34;
+    disabled = isPy34 || isPy35;
 
     src = pkgs.fetchurl {
       url = "http://freshfoo.com/projects/IMAPClient/${name}.tar.gz";
@@ -17080,11 +17190,11 @@ let
 
   libvirt = pkgs.stdenv.mkDerivation rec {
     name = "libvirt-python-${version}";
-    version = "1.2.18";
+    version = "1.2.19";
 
     src = pkgs.fetchurl {
       url = "http://libvirt.org/sources/python/${name}.tar.gz";
-      sha256 = "0f1ni9nv6zmrfhvv71bs2d5yg0pk01zl3hsz1dh1178c2vpkai90";
+      sha256 = "0jgcggrwaz9512wzlkgxirq56cr7zq2ihmg8qv95nhryqnq67aw8";
     };
 
     buildInputs = with self; [ python pkgs.pkgconfig pkgs.libvirt lxml ];

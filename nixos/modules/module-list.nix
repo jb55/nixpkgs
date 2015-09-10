@@ -275,6 +275,7 @@
   ./services/networking/ddclient.nix
   ./services/networking/dhcpcd.nix
   ./services/networking/dhcpd.nix
+  ./services/networking/dnschain.nix
   ./services/networking/dnscrypt-proxy.nix
   ./services/networking/dnsmasq.nix
   ./services/networking/docker-registry-server.nix
@@ -486,6 +487,7 @@
   ./virtualisation/docker.nix
   ./virtualisation/libvirtd.nix
   ./virtualisation/lxc.nix
+  ./virtualisation/lxd.nix
   ./virtualisation/amazon-options.nix
   ./virtualisation/openvswitch.nix
   ./virtualisation/parallels-guest.nix
