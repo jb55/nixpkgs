@@ -327,6 +327,7 @@ self: super: assert super.ghc.name == "ghc-7.10.2"; {
   "GLFW-b-demo" = dontDistribute super."GLFW-b-demo";
   "GLFW-task" = dontDistribute super."GLFW-task";
   "GLHUI" = dontDistribute super."GLHUI";
+  "GLM" = dontDistribute super."GLM";
   "GLMatrix" = dontDistribute super."GLMatrix";
   "GLURaw" = dontDistribute super."GLURaw";
   "GLUT" = dontDistribute super."GLUT";
@@ -4686,6 +4687,8 @@ self: super: assert super.ghc.name == "ghc-7.10.2"; {
   "luhn" = dontDistribute super."luhn";
   "lui" = dontDistribute super."lui";
   "luka" = dontDistribute super."luka";
+  "luminance" = dontDistribute super."luminance";
+  "luminance-samples" = dontDistribute super."luminance-samples";
   "lushtags" = dontDistribute super."lushtags";
   "luthor" = dontDistribute super."luthor";
   "lvish" = dontDistribute super."lvish";
