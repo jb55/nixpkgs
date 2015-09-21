@@ -216,6 +216,7 @@ self: super: assert super.ghc.name == "ghc-7.8.4"; {
   "Crypto" = dontDistribute super."Crypto";
   "CurryDB" = dontDistribute super."CurryDB";
   "DAG-Tournament" = dontDistribute super."DAG-Tournament";
+  "DAV" = doDistribute super."DAV_1_0_7";
   "DBlimited" = dontDistribute super."DBlimited";
   "DBus" = dontDistribute super."DBus";
   "DCFL" = dontDistribute super."DCFL";
@@ -1321,6 +1322,7 @@ self: super: assert super.ghc.name == "ghc-7.8.4"; {
   "asil" = dontDistribute super."asil";
   "asn1-data" = doDistribute super."asn1-data_0_7_1";
   "asn1-encoding" = doDistribute super."asn1-encoding_0_9_0";
+  "asn1-types" = doDistribute super."asn1-types_0_3_0";
   "asn1dump" = dontDistribute super."asn1dump";
   "assembler" = dontDistribute super."assembler";
   "assert" = dontDistribute super."assert";
@@ -2825,6 +2827,7 @@ self: super: assert super.ghc.name == "ghc-7.8.4"; {
   "fay-hsx" = dontDistribute super."fay-hsx";
   "fay-jquery" = doDistribute super."fay-jquery_0_6_0_3";
   "fay-ref" = dontDistribute super."fay-ref";
+  "fb" = doDistribute super."fb_1_0_11";
   "fca" = dontDistribute super."fca";
   "fcd" = dontDistribute super."fcd";
   "fckeditor" = dontDistribute super."fckeditor";
@@ -5569,6 +5572,7 @@ self: super: assert super.ghc.name == "ghc-7.8.4"; {
   "pandoc-csv2table" = dontDistribute super."pandoc-csv2table";
   "pandoc-lens" = dontDistribute super."pandoc-lens";
   "pandoc-placetable" = dontDistribute super."pandoc-placetable";
+  "pandoc-types" = doDistribute super."pandoc-types_1_12_4_5";
   "pandoc-unlit" = dontDistribute super."pandoc-unlit";
   "papillon" = dontDistribute super."papillon";
   "pappy" = dontDistribute super."pappy";
@@ -5883,6 +5887,7 @@ self: super: assert super.ghc.name == "ghc-7.8.4"; {
   "pretty-tree" = dontDistribute super."pretty-tree";
   "prettyFunctionComposing" = dontDistribute super."prettyFunctionComposing";
   "prim-uniq" = dontDistribute super."prim-uniq";
+  "primitive" = doDistribute super."primitive_0_6";
   "primula-board" = dontDistribute super."primula-board";
   "primula-bot" = dontDistribute super."primula-bot";
   "printf-mauke" = dontDistribute super."printf-mauke";

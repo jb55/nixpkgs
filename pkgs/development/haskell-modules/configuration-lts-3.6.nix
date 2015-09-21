@@ -201,6 +201,7 @@ self: super: assert super.ghc.name == "ghc-7.10.2"; {
   "Crypto" = dontDistribute super."Crypto";
   "CurryDB" = dontDistribute super."CurryDB";
   "DAG-Tournament" = dontDistribute super."DAG-Tournament";
+  "DAV" = doDistribute super."DAV_1_0_7";
   "DBlimited" = dontDistribute super."DBlimited";
   "DBus" = dontDistribute super."DBus";
   "DCFL" = dontDistribute super."DCFL";
@@ -1227,6 +1228,7 @@ self: super: assert super.ghc.name == "ghc-7.10.2"; {
   "ar-timestamp-wiper" = dontDistribute super."ar-timestamp-wiper";
   "arb-fft" = dontDistribute super."arb-fft";
   "arbb-vm" = dontDistribute super."arbb-vm";
+  "arbtt" = doDistribute super."arbtt_0_9_0_5";
   "archive" = dontDistribute super."archive";
   "archiver" = dontDistribute super."archiver";
   "archlinux" = dontDistribute super."archlinux";
@@ -1261,6 +1263,8 @@ self: super: assert super.ghc.name == "ghc-7.10.2"; {
   "asic" = dontDistribute super."asic";
   "asil" = dontDistribute super."asil";
   "asn1-data" = dontDistribute super."asn1-data";
+  "asn1-encoding" = doDistribute super."asn1-encoding_0_9_2";
+  "asn1-types" = doDistribute super."asn1-types_0_3_0";
   "asn1dump" = dontDistribute super."asn1dump";
   "assembler" = dontDistribute super."assembler";
   "assert" = dontDistribute super."assert";
@@ -1808,7 +1812,13 @@ self: super: assert super.ghc.name == "ghc-7.10.2"; {
   "claferwiki" = dontDistribute super."claferwiki";
   "clanki" = dontDistribute super."clanki";
   "clash" = dontDistribute super."clash";
+  "clash-ghc" = doDistribute super."clash-ghc_0_5_14";
+  "clash-lib" = doDistribute super."clash-lib_0_5_12";
+  "clash-prelude" = doDistribute super."clash-prelude_0_9_2";
   "clash-prelude-quickcheck" = dontDistribute super."clash-prelude-quickcheck";
+  "clash-systemverilog" = doDistribute super."clash-systemverilog_0_5_9";
+  "clash-verilog" = doDistribute super."clash-verilog_0_5_9";
+  "clash-vhdl" = doDistribute super."clash-vhdl_0_5_11";
   "classify" = dontDistribute super."classify";
   "classy-parallel" = dontDistribute super."classy-parallel";
   "clckwrks" = dontDistribute super."clckwrks";
@@ -2019,6 +2029,7 @@ self: super: assert super.ghc.name == "ghc-7.10.2"; {
   "count" = dontDistribute super."count";
   "countable" = dontDistribute super."countable";
   "counter" = dontDistribute super."counter";
+  "country-codes" = doDistribute super."country-codes_0_1_2";
   "court" = dontDistribute super."court";
   "coverage" = dontDistribute super."coverage";
   "cpio-conduit" = dontDistribute super."cpio-conduit";
@@ -2657,6 +2668,7 @@ self: super: assert super.ghc.name == "ghc-7.10.2"; {
   "fay-geoposition" = dontDistribute super."fay-geoposition";
   "fay-hsx" = dontDistribute super."fay-hsx";
   "fay-ref" = dontDistribute super."fay-ref";
+  "fb" = doDistribute super."fb_1_0_11";
   "fca" = dontDistribute super."fca";
   "fcd" = dontDistribute super."fcd";
   "fckeditor" = dontDistribute super."fckeditor";
@@ -2964,6 +2976,7 @@ self: super: assert super.ghc.name == "ghc-7.10.2"; {
   "gimlh" = dontDistribute super."gimlh";
   "ginger" = dontDistribute super."ginger";
   "ginsu" = dontDistribute super."ginsu";
+  "gipeda" = doDistribute super."gipeda_0_1_2_1";
   "gist" = dontDistribute super."gist";
   "git-all" = dontDistribute super."git-all";
   "git-checklist" = dontDistribute super."git-checklist";
@@ -3403,6 +3416,7 @@ self: super: assert super.ghc.name == "ghc-7.10.2"; {
   "hasloGUI" = dontDistribute super."hasloGUI";
   "hasparql-client" = dontDistribute super."hasparql-client";
   "haspell" = dontDistribute super."haspell";
+  "hasql-postgres" = doDistribute super."hasql-postgres_0_10_5";
   "hasql-postgres-options" = dontDistribute super."hasql-postgres-options";
   "hastache-aeson" = dontDistribute super."hastache-aeson";
   "haste" = dontDistribute super."haste";
@@ -3418,6 +3432,7 @@ self: super: assert super.ghc.name == "ghc-7.10.2"; {
   "haxl" = dontDistribute super."haxl";
   "haxl-facebook" = dontDistribute super."haxl-facebook";
   "haxparse" = dontDistribute super."haxparse";
+  "haxr" = doDistribute super."haxr_3000_11_1_1";
   "haxr-th" = dontDistribute super."haxr-th";
   "haxy" = dontDistribute super."haxy";
   "hayland" = dontDistribute super."hayland";
@@ -4222,6 +4237,7 @@ self: super: assert super.ghc.name == "ghc-7.10.2"; {
   "jsc" = dontDistribute super."jsc";
   "jsmw" = dontDistribute super."jsmw";
   "json-assertions" = dontDistribute super."json-assertions";
+  "json-autotype" = doDistribute super."json-autotype_1_0_7";
   "json-b" = dontDistribute super."json-b";
   "json-enumerator" = dontDistribute super."json-enumerator";
   "json-extra" = dontDistribute super."json-extra";
@@ -4385,6 +4401,7 @@ self: super: assert super.ghc.name == "ghc-7.10.2"; {
   "lat" = dontDistribute super."lat";
   "latest-npm-version" = dontDistribute super."latest-npm-version";
   "latex" = dontDistribute super."latex";
+  "lattices" = doDistribute super."lattices_1_3";
   "launchpad-control" = dontDistribute super."launchpad-control";
   "lax" = dontDistribute super."lax";
   "layers" = dontDistribute super."layers";
@@ -4655,6 +4672,7 @@ self: super: assert super.ghc.name == "ghc-7.10.2"; {
   "mancala" = dontDistribute super."mancala";
   "mandrill" = doDistribute super."mandrill_0_3_0_0";
   "mandulia" = dontDistribute super."mandulia";
+  "mangopay" = doDistribute super."mangopay_1_11_4";
   "manifolds" = dontDistribute super."manifolds";
   "marionetta" = dontDistribute super."marionetta";
   "markdown-kate" = dontDistribute super."markdown-kate";
@@ -5209,10 +5227,12 @@ self: super: assert super.ghc.name == "ghc-7.10.2"; {
   "palindromes" = dontDistribute super."palindromes";
   "pam" = dontDistribute super."pam";
   "panda" = dontDistribute super."panda";
+  "pandoc-citeproc" = doDistribute super."pandoc-citeproc_0_7_3_1";
   "pandoc-crossref" = dontDistribute super."pandoc-crossref";
   "pandoc-csv2table" = dontDistribute super."pandoc-csv2table";
   "pandoc-lens" = dontDistribute super."pandoc-lens";
   "pandoc-placetable" = dontDistribute super."pandoc-placetable";
+  "pandoc-types" = doDistribute super."pandoc-types_1_12_4_5";
   "pandoc-unlit" = dontDistribute super."pandoc-unlit";
   "papillon" = dontDistribute super."papillon";
   "pappy" = dontDistribute super."pappy";
@@ -5498,6 +5518,7 @@ self: super: assert super.ghc.name == "ghc-7.10.2"; {
   "pretty-tree" = dontDistribute super."pretty-tree";
   "prettyFunctionComposing" = dontDistribute super."prettyFunctionComposing";
   "prim-uniq" = dontDistribute super."prim-uniq";
+  "primitive" = doDistribute super."primitive_0_6";
   "primula-board" = dontDistribute super."primula-board";
   "primula-bot" = dontDistribute super."primula-bot";
   "printf-mauke" = dontDistribute super."printf-mauke";
@@ -6214,6 +6235,7 @@ self: super: assert super.ghc.name == "ghc-7.10.2"; {
   "smartconstructor" = dontDistribute super."smartconstructor";
   "smartword" = dontDistribute super."smartword";
   "sme" = dontDistribute super."sme";
+  "smoothie" = doDistribute super."smoothie_0_4_1";
   "smsaero" = dontDistribute super."smsaero";
   "smt-lib" = dontDistribute super."smt-lib";
   "smtlib2" = dontDistribute super."smtlib2";
@@ -6321,6 +6343,7 @@ self: super: assert super.ghc.name == "ghc-7.10.2"; {
   "spata" = dontDistribute super."spata";
   "spatial-math" = dontDistribute super."spatial-math";
   "spawn" = dontDistribute super."spawn";
+  "spdx" = doDistribute super."spdx_0_2_0_0";
   "spe" = dontDistribute super."spe";
   "special-functors" = dontDistribute super."special-functors";
   "special-keys" = dontDistribute super."special-keys";
@@ -6443,6 +6466,7 @@ self: super: assert super.ghc.name == "ghc-7.10.2"; {
   "streamed" = dontDistribute super."streamed";
   "streaming" = dontDistribute super."streaming";
   "streaming-bytestring" = dontDistribute super."streaming-bytestring";
+  "streaming-commons" = doDistribute super."streaming-commons_0_1_13";
   "streaming-histogram" = dontDistribute super."streaming-histogram";
   "streaming-utils" = dontDistribute super."streaming-utils";
   "streamproc" = dontDistribute super."streamproc";
@@ -6838,6 +6862,7 @@ self: super: assert super.ghc.name == "ghc-7.10.2"; {
   "tst" = dontDistribute super."tst";
   "tsvsql" = dontDistribute super."tsvsql";
   "ttrie" = dontDistribute super."ttrie";
+  "tttool" = doDistribute super."tttool_1_4_0_4";
   "tubes" = dontDistribute super."tubes";
   "tuntap" = dontDistribute super."tuntap";
   "tup-functor" = dontDistribute super."tup-functor";
@@ -6872,6 +6897,7 @@ self: super: assert super.ghc.name == "ghc-7.10.2"; {
   "twitter" = dontDistribute super."twitter";
   "twitter-conduit" = dontDistribute super."twitter-conduit";
   "twitter-enumerator" = dontDistribute super."twitter-enumerator";
+  "twitter-feed" = doDistribute super."twitter-feed_0_2_0_3";
   "twitter-types" = dontDistribute super."twitter-types";
   "twitter-types-lens" = dontDistribute super."twitter-types-lens";
   "tx" = dontDistribute super."tx";
@@ -7406,6 +7432,7 @@ self: super: assert super.ghc.name == "ghc-7.10.2"; {
   "yesod-json" = dontDistribute super."yesod-json";
   "yesod-links" = dontDistribute super."yesod-links";
   "yesod-lucid" = dontDistribute super."yesod-lucid";
+  "yesod-mangopay" = doDistribute super."yesod-mangopay_1_11_4";
   "yesod-markdown" = dontDistribute super."yesod-markdown";
   "yesod-media-simple" = dontDistribute super."yesod-media-simple";
   "yesod-paginate" = dontDistribute super."yesod-paginate";
