@@ -206,6 +206,7 @@ self: super: assert super.ghc.name == "ghc-7.8.4"; {
   "ConstraintKinds" = dontDistribute super."ConstraintKinds";
   "Consumer" = dontDistribute super."Consumer";
   "ContArrow" = dontDistribute super."ContArrow";
+  "ContextAlgebra" = dontDistribute super."ContextAlgebra";
   "Contract" = dontDistribute super."Contract";
   "Control-Engine" = dontDistribute super."Control-Engine";
   "Control-Monad-MultiPass" = dontDistribute super."Control-Monad-MultiPass";
@@ -682,6 +683,7 @@ self: super: assert super.ghc.name == "ghc-7.8.4"; {
   "NanoProlog" = dontDistribute super."NanoProlog";
   "NaturalLanguageAlphabets" = dontDistribute super."NaturalLanguageAlphabets";
   "NaturalSort" = dontDistribute super."NaturalSort";
+  "NearContextAlgebra" = dontDistribute super."NearContextAlgebra";
   "Neks" = dontDistribute super."Neks";
   "NestedFunctor" = dontDistribute super."NestedFunctor";
   "NestedSampling" = dontDistribute super."NestedSampling";
@@ -820,6 +822,7 @@ self: super: assert super.ghc.name == "ghc-7.8.4"; {
   "RichConditional" = dontDistribute super."RichConditional";
   "Rlang-QQ" = dontDistribute super."Rlang-QQ";
   "RollingDirectory" = dontDistribute super."RollingDirectory";
+  "RoyalMonad" = dontDistribute super."RoyalMonad";
   "RxHaskell" = dontDistribute super."RxHaskell";
   "SBench" = dontDistribute super."SBench";
   "SConfig" = dontDistribute super."SConfig";
@@ -1411,6 +1414,7 @@ self: super: assert super.ghc.name == "ghc-7.8.4"; {
   "autonix-deps-kf5" = dontDistribute super."autonix-deps-kf5";
   "autoproc" = dontDistribute super."autoproc";
   "avahi" = dontDistribute super."avahi";
+  "avatar-generator" = dontDistribute super."avatar-generator";
   "average" = dontDistribute super."average";
   "avers" = dontDistribute super."avers";
   "avl-static" = dontDistribute super."avl-static";
