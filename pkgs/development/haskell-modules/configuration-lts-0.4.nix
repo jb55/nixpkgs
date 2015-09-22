@@ -7923,6 +7923,7 @@ self: super: assert super.ghc.name == "ghc-7.8.3"; {
   "uuid" = doDistribute super."uuid_1_3_6";
   "uuid-aeson" = dontDistribute super."uuid-aeson";
   "uuid-le" = dontDistribute super."uuid-le";
+  "uuid-orphans" = dontDistribute super."uuid-orphans";
   "uuid-quasi" = dontDistribute super."uuid-quasi";
   "uuid-types" = dontDistribute super."uuid-types";
   "uulib" = dontDistribute super."uulib";
