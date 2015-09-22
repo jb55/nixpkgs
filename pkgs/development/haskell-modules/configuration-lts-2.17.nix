@@ -510,6 +510,7 @@ self: super: assert super.ghc.name == "ghc-7.8.4"; {
   "Hayoo" = dontDistribute super."Hayoo";
   "Hclip" = dontDistribute super."Hclip";
   "Hedi" = dontDistribute super."Hedi";
+  "HerbiePlugin" = dontDistribute super."HerbiePlugin";
   "Hermes" = dontDistribute super."Hermes";
   "Hieroglyph" = dontDistribute super."Hieroglyph";
   "HiggsSet" = dontDistribute super."HiggsSet";
