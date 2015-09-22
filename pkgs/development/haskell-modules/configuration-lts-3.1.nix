@@ -7311,6 +7311,7 @@ self: super: assert super.ghc.name == "ghc-7.10.2"; {
   "wai-static-pages" = dontDistribute super."wai-static-pages";
   "wai-test" = dontDistribute super."wai-test";
   "wai-throttler" = dontDistribute super."wai-throttler";
+  "wai-transformers" = dontDistribute super."wai-transformers";
   "wai-util" = dontDistribute super."wai-util";
   "wait-handle" = dontDistribute super."wait-handle";
   "waitfree" = dontDistribute super."waitfree";

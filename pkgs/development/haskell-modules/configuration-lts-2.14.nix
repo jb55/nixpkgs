@@ -7746,6 +7746,7 @@ self: super: assert super.ghc.name == "ghc-7.8.4"; {
   "wai-static-pages" = dontDistribute super."wai-static-pages";
   "wai-test" = dontDistribute super."wai-test";
   "wai-throttler" = dontDistribute super."wai-throttler";
+  "wai-transformers" = dontDistribute super."wai-transformers";
   "wai-util" = dontDistribute super."wai-util";
   "wai-websockets" = doDistribute super."wai-websockets_3_0_0_5";
   "wait-handle" = dontDistribute super."wait-handle";
