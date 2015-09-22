@@ -7824,6 +7824,7 @@ self: super: assert super.ghc.name == "ghc-7.8.4"; {
   "wai-middleware-static" = doDistribute super."wai-middleware-static_0_6_0_1";
   "wai-middleware-static-caching" = dontDistribute super."wai-middleware-static-caching";
   "wai-middleware-throttle" = dontDistribute super."wai-middleware-throttle";
+  "wai-middleware-verbs" = dontDistribute super."wai-middleware-verbs";
   "wai-predicates" = dontDistribute super."wai-predicates";
   "wai-request-spec" = dontDistribute super."wai-request-spec";
   "wai-responsible" = dontDistribute super."wai-responsible";
