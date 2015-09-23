@@ -3739,10 +3739,10 @@ let self = _self // overrides; _self = with self; {
   };
 
   EmailAddress = buildPerlPackage {
-    name = "Email-Address-1.901";
+    name = "Email-Address-1.908";
     src = fetchurl {
-      url = mirror://cpan/authors/id/R/RJ/RJBS/Email-Address-1.901.tar.gz;
-      sha256 = "00svsmv2hk35ybpd7jxcsn7k54i0q9ph5lf8ksv9nkh1abraprkz";
+      url = mirror://cpan/authors/id/R/RJ/RJBS/Email-Address-1.908.tar.gz;
+      sha256 = "0i6ljdvpy279hpbqf6lgv4figr376rb2sh4yphj86xkdzsyn1y75";
     };
     meta = {
       homepage = http://search.cpan.org/perldoc?CPAN::Meta::Spec;
@@ -5621,10 +5621,10 @@ let self = _self // overrides; _self = with self; {
   };
 
   IOSocketSSL = buildPerlPackage {
-    name = "IO-Socket-SSL-2.016";
+    name = "IO-Socket-SSL-2.020";
     src = fetchurl {
-      url = mirror://cpan/authors/id/S/SU/SULLR/IO-Socket-SSL-2.016.tar.gz;
-      sha256 = "0hgyggdbw16nm85fds48m79lxy5318panqhpkh7r192jq6rnhqlk";
+      url = mirror://cpan/authors/id/S/SU/SULLR/IO-Socket-SSL-2.020.tar.gz;
+      sha256 = "1nqjwnyd8iy0whisa352a97ihxw2zc78cmbxa0ccs4547bljr3js";
     };
     propagatedBuildInputs = [ URI NetSSLeay ];
     meta = {
