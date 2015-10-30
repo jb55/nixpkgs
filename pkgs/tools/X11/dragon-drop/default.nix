@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "simple drag-and-drop source/sink for X";
+    description = "Simple drag-and-drop source/sink for X";
     homepage = "https://github.com/mwh/dragon";
     maintainers = with maintainers; [ jb55 ];
     license = licenses.gpl3;
