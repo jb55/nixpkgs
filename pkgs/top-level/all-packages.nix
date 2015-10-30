@@ -828,6 +828,10 @@ let
 
   dtrx = callPackage ../tools/compression/dtrx { };
 
+  dragon-drop = callPackage ../tools/X11/dragon-drop {
+    gtk = gtk3;
+  };
+
   duperemove = callPackage ../tools/filesystems/duperemove {
     linuxHeaders = linuxHeaders_3_14;
   };
