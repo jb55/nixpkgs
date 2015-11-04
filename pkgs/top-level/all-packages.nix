@@ -826,10 +826,6 @@ let
 
   dlx = callPackage ../misc/emulators/dlx { };
 
-  dragon-drop = callPackage ../tools/X11/dragon-drop {
-    gtk = gtk3;
-  };
-
   dtrx = callPackage ../tools/compression/dtrx { };
 
   dragon-drop = callPackage ../tools/X11/dragon-drop {
