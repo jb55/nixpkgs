@@ -1,7 +1,7 @@
 { lib, stdenv, fetchurl, patchelf, perl, ncurses, expat, python, zlib
 , xorg, gtk2, glib, fontconfig, freetype, unixODBC, alsaLib, glibc
 # generic inputs
-, version, sha256, url ? null, ...
+, version, sha256 ? null, md5 ? null, url ? null, ...
 } :
 
 let
@@ -18,10 +18,9 @@ in stdenv.mkDerivation rec {
 
   src =
     if stdenv.system == "x86_64-linux" then
-      fetchurl {
+      fetchurl ({
         url = if url != null then url else "http://developer.download.nvidia.com/compute/cuda/${shortVer}/rel/installers/cuda_${version}_linux_64.run";
-        sha256 = sha256;
-      }
+      } // (if sha256 == null then { md5 = md5; } else { sha256 = sha256; }))
     else throw "cudatoolkit does not support platform ${stdenv.system}";
 
   outputs = [ "out" "sdk" ];
