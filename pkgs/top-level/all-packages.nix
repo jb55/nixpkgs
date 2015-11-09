@@ -1175,6 +1175,8 @@ let
 
   cudatoolkit7 = callPackage ../development/compilers/cudatoolkit/7.0.nix { };
 
+  cudatoolkit75 = callPackage ../development/compilers/cudatoolkit/7.5.nix { };
+
   cudatoolkit = cudatoolkit7;
 
   curlFull = curl.override {
