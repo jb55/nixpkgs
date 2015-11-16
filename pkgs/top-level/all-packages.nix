@@ -7816,6 +7816,10 @@ let
 
   opensubdiv = callPackage ../development/libraries/opensubdiv { };
 
+  openvr = callPackage ../development/libraries/openvr {
+    steamVrHash = config.openvr.steamVrHash;
+  };
+
   openwsman = callPackage ../development/libraries/openwsman {};
 
   ortp = callPackage ../development/libraries/ortp { };
