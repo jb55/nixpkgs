@@ -10582,6 +10582,8 @@ let
 
   numix-icon-theme-circle = callPackage ../data/icons/numix-icon-theme-circle { };
 
+  oculus-udev = callPackage ../os-specific/linux/oculus-udev { };
+
   oldstandard = callPackage ../data/fonts/oldstandard { };
 
   open-dyslexic = callPackage ../data/fonts/open-dyslexic { };
