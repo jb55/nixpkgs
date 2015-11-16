@@ -2450,6 +2450,8 @@ let
 
   obnam = callPackage ../tools/backup/obnam { };
 
+  oculus-sdk = callPackage ../development/libraries/oculus-sdk { };
+
   odt2txt = callPackage ../tools/text/odt2txt { };
 
   odamex = callPackage ../games/odamex { };

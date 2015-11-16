@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, fetchurl, cmake, mesa, mesa_glu, libXrandr, libX11, udev,
+{ stdenv, fetchFromGitHub, fetchurl, cmake, mesa, libXrandr, libX11, udev,
   qt5, libXext, libXrender, makeWrapper }:
 
 # source: https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=oculus-rift-sdk-jherico-git
@@ -30,8 +30,8 @@ in stdenv.mkDerivation rec {
   };
 
   dontStrip = true;
-  buildInputs = [ cmake mesa mesa_glu libXrandr libX11 libXrender libXext udev
-                  makeWrapper ];
+  buildInputs = [ cmake mesa libXrandr libX11 libXrender libXext udev
+                  makeWrapper qt5.base ];
 
   buildPhase = ''
     cd ..
@@ -89,9 +89,8 @@ in stdenv.mkDerivation rec {
     # TODO: patchelf me
     install -m 755 "${riftConfigUtil}" "$out/bin/OculusConfigUtil"
     patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" $out/bin/OculusConfigUtil
+    ${patchLib "$out/bin/OculusConfigUtil"}
     ${wrapProg "$out/bin/OculusConfigUtil"}
-
-    echo "1"
 
     cp "output/libovr.a" "$out/lib/libOVR.a"
     cp "output/libovr.so" "$out/lib/libOVRRT64_0.so.5.0.1"
@@ -100,8 +99,6 @@ in stdenv.mkDerivation rec {
 
     ln -s libOVRRT64_0.so.5.0.1 $out/lib/libOVRRT64_0.so.5
     ln -s libOVRdRT64_0.so.5.0.1 $out/lib/libOVRdRT64_0.so.5
-
-    echo "2"
 
     #library was previously named libovr
     ln -s $out/lib/libOVRRT64_0.so.5.0.1 $out/lib/libovr.so
@@ -112,8 +109,6 @@ in stdenv.mkDerivation rec {
     # To be sure, these names too
     ln -s $out/lib/libovr.so $out/lib/libOculusVR.so
     ln -s $out/lib/libovr.a $out/lib/libOculusVR.a
-
-    echo "3"
 
     cp -rd "$srcdir/LibOVR/Include"/* $out/include
     cp -rd "$srcdir/LibOVRKernel/Src"/* $out/include
@@ -132,15 +127,11 @@ in stdenv.mkDerivation rec {
 
     # install -m755 "$srcdir/OculusConfigUtil.sh" "$out/bin/OculusConfigUtil"
 
-    echo "4"
-
+    install -m755 "$srcdir/Service/OVRServer/Bin/Linux/x86_64/ReleaseStatic/ovrd" "$out/bin/ovrd"
     patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" $out/bin/ovrd
-    patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" $out/bin/ovrd
+    ${patchLib "$out/bin/ovrd"}
     ${wrapProg "$out/bin/ovrd"}
-    echo "udev: ${udev}/lib"
-    # patchelf --set-rpath "${udev}/lib" $out/bin/ovrd
 
-    echo "5"
     #TODO: make systemd service
 #     install -d "$out/etc/xdg/autostart"
 #     echo "[Desktop Entry]
