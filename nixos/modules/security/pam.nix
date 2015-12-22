@@ -36,14 +36,61 @@ let
         '';
       };
 
-      u2fAuth = mkOption {
-        default = config.security.pam.enableU2F;
-        type = types.bool;
-        description = ''
-          If set, users listed in
-          <filename>~/.yubico/u2f_keys</filename> are able to log in
-          with the associated U2F key.
-        '';
+      u2f = {
+        enabled = mkOption {
+          default = config.security.pam.u2f.enabled;
+          type = types.bool;
+          description = ''
+            Enable the U2F PAM (<literal>pam-u2f</literal>) module.
+
+            If set, users listed in
+            <filename>$XDG_CONFIG_HOME/Yubico/u2f_keys</filename> (or
+            <filename>$HOME/.config/Yubico/u2f_keys</filename> if XDG variable is
+            not set) are able to log in with the associated U2F key.
+
+            File format is:
+            <literal>username:first_keyHandle,first_public_key: second_keyHandle,second_public_key</literal>
+            This file can be generated using <command>pamu2fcfg</command> command.
+
+            More about that you can read on
+            <literal>https://developers.yubico.com/pam-u2f/</literal>.
+          '';
+        };
+
+        keysPath = mkOption {
+          default = config.security.pam.u2f.keysPath;
+          type = types.str;
+          description = ''
+            By default <literal>pam-u2f</literal> module reads the keys from
+            <filename>$XDG_CONFIG_HOME/Yubico/u2f_keys</filename> (or
+                <filename>$HOME/.config/Yubico/u2f_keys</filename> if XDG variable is
+                not set).
+
+            If you want to change auth file locations or centralize database (for
+                example use <filename>/etc/u2f-mappings</filename>) you can set this
+            option this parameter.
+
+            File format is:
+            <literal>username:first_keyHandle,first_public_key: second_keyHandle,second_public_key</literal>
+            This file can be generated using <command>pamu2fcfg</command> command.
+
+            More about that you can read on
+            <literal>https://developers.yubico.com/pam-u2f/</literal>.
+            '';
+        };
+
+        verbose = mkOption {
+          default = config.security.pam.u2f.verbose;
+          type = types.bool;
+          description = ''
+            By default <literal>pam-u2f</literal> module does not inform user
+            that he needs to use the u2f device, it just waits without a prompt.
+
+            If you sen this option to <literal>true</literal>,
+               <literal>cue</literal> option is added to <literal>pam-u2f</literal>
+                 module and reminder message will be displayed.
+                 '';
+        };
       };
 
       usbAuth = mkOption {
@@ -249,8 +296,8 @@ let
               "auth sufficient ${pkgs.pam_ssh_agent_auth}/libexec/pam_ssh_agent_auth.so file=~/.ssh/authorized_keys:~/.ssh/authorized_keys2:/etc/ssh/authorized_keys.d/%u"}
           ${optionalString cfg.fprintAuth
               "auth sufficient ${pkgs.fprintd}/lib/security/pam_fprintd.so"}
-          ${optionalString cfg.u2fAuth
-              "auth sufficient ${pkgs.pam_u2f}/lib/security/pam_u2f.so"}
+          ${optionalString cfg.u2f.enabled
+              "auth sufficient ${pkgs.pam_u2f}/lib/security/pam_u2f.so"} ${optionalString (cfg.u2f.keysPath != "") "authfile=${cfg.u2f.keysPath}"} ${optionalString cfg.u2f.verbose "cue"}
           ${optionalString cfg.usbAuth
               "auth sufficient ${pkgs.pam_usb}/lib/security/pam_usb.so"}
         '' +
@@ -433,11 +480,66 @@ in
       '';
     };
 
-    security.pam.enableU2F = mkOption {
+    security.pam.enableOATH = mkOption {
       default = false;
       description = ''
-        Enable the U2F PAM module.
+        Enable the OATH (one-time password) PAM module.
       '';
+    };
+
+    security.pam.u2f = {
+      enabled = mkOption {
+        default = false;
+        type = types.bool;
+        description = ''
+          Enable the U2F PAM (<literal>pam-u2f</literal>) module.
+
+          If set, users listed in
+          <filename>$XDG_CONFIG_HOME/Yubico/u2f_keys</filename> (or
+          <filename>$HOME/.config/Yubico/u2f_keys</filename> if XDG variable is
+          not set) are able to log in with the associated U2F key.
+
+          File format is:
+          <literal>username:first_keyHandle,first_public_key: second_keyHandle,second_public_key</literal>
+          This file can be generated using <command>pamu2fcfg</command> command.
+
+          More about that you can read on
+          <literal>https://developers.yubico.com/pam-u2f/</literal>.
+        '';
+      };
+      keysPath = mkOption {
+        default = "";
+        type = types.str;
+        description = ''
+          By default <literal>pam-u2f</literal> module reads the keys from
+          <filename>$XDG_CONFIG_HOME/Yubico/u2f_keys</filename> (or
+          <filename>$HOME/.config/Yubico/u2f_keys</filename> if XDG variable is
+          not set).
+
+          If you want to change auth file locations or centralize database (for
+          example use <filename>/etc/u2f-mappings</filename>) you can set this
+          option this parameter.
+
+          File format is:
+          <literal>username:first_keyHandle,first_public_key: second_keyHandle,second_public_key</literal>
+          This file can be generated using <command>pamu2fcfg</command> command.
+
+          More about that you can read on
+          <literal>https://developers.yubico.com/pam-u2f/</literal>.
+        '';
+      };
+      verbose = mkOption {
+        default = false;
+        type = types.bool;
+        description = ''
+          By default <literal>pam-u2f</literal> module does not inform user
+          that he needs to use the u2f device, it just waits without a prompt.
+
+          If you sen this option to <literal>true</literal>,
+          <literal>cue</literal> option is added to <literal>pam-u2f</literal>
+          module and reminder message will be displayed.
+        '';
+      };
     };
 
     security.pam.enableEcryptfs = mkOption {
@@ -469,7 +571,7 @@ in
       ++ optionals config.krb5.enable [pam_krb5 pam_ccreds]
       ++ optionals config.security.pam.enableOTPW [ pkgs.otpw ]
       ++ optionals config.security.pam.oath.enable [ pkgs.oathToolkit ]
-      ++ optionals config.security.pam.enableU2F [ pkgs.pam_u2f ]
+      ++ optionals config.security.pam.u2f.enabled [ pkgs.pam_u2f ]
       ++ optionals config.security.pam.enableEcryptfs [ pkgs.ecryptfs ];
 
     security.setuidPrograms =
