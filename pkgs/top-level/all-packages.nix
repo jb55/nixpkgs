@@ -8991,6 +8991,8 @@ in
     libpcap = if stdenv.isLinux then libpcap else null;
   };
 
+  stb = callPackage ../development/libraries/stb { };
+
   stxxl = callPackage ../development/libraries/stxxl { parallel = true; };
 
   sqlite = lowPrio (callPackage ../development/libraries/sqlite { });
