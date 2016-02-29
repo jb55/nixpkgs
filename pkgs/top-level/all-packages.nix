@@ -8422,6 +8422,8 @@ in
 
   nanomsg = callPackage ../development/libraries/nanomsg { };
 
+  nanovg = callPackage ../development/libraries/nanovg { };
+
   notify-sharp = callPackage ../development/libraries/notify-sharp { };
 
   ncurses = callPackage ../development/libraries/ncurses { };
