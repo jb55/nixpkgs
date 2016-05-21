@@ -1,4 +1,4 @@
-{ stdenv, mkChromiumDerivation, channel }:
+{ stdenv, mkChromiumDerivation, channel, enableNaCl }:
 
 with stdenv.lib;
 
@@ -10,6 +10,10 @@ mkChromiumDerivation (base: rec {
   outputs = ["out" "sandbox"];
 
   sandboxExecutableName = "__chromium-suid-sandbox";
+  # Trying to run NaCl apps with a stripped nacl_irt_*.nexe file results in a
+  # segfault. We therefore disable stripping here and manually strip the
+  # binaries when they're copied.
+  dontStrip = true;
 
   installPhase = ''
     mkdir -p "$libExecPath"
@@ -25,6 +29,17 @@ mkChromiumDerivation (base: rec {
 
     mkdir -p "$sandbox/bin"
     cp -v "$buildPath/chrome_sandbox" "$sandbox/bin/${sandboxExecutableName}"
+    strip -S "$libExecPath/$packageName"
+    cp -v "$buildPath/chrome_sandbox" "$libExecPath/chrome-sandbox"
+    strip -S "$libExecPath/chrome-sandbox"
+
+    ${optionalString enableNaCl ''
+      cp -v "$buildPath/nacl_helper" "$libExecPath/"
+      strip -S "$libExecPath/nacl_helper"
+      cp -v "$buildPath/nacl_helper_bootstrap" "$libExecPath/"
+      strip -S "$libExecPath/nacl_helper_bootstrap"
+      cp -v "$buildPath/"nacl_irt_*.nexe "$libExecPath/"
+    ''}
 
     mkdir -vp "$out/share/man/man1"
     cp -v "$buildPath/chrome.1" "$out/share/man/man1/$packageName.1"

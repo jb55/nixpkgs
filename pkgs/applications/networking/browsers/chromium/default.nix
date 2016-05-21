@@ -20,13 +20,15 @@ let
   chromium = {
     upstream-info = (callPackage ./update.nix {}).getChannel channel;
 
+    nacl-toolchain = callPackage ./native-client {};
+
     mkChromiumDerivation = callPackage ./common.nix {
       inherit enableNaCl enableHotwording gnomeSupport gnome
               gnomeKeyringSupport proprietaryCodecs cupsSupport pulseSupport
               enableWideVine;
     };
 
-    browser = callPackage ./browser.nix { inherit channel; };
+    browser = callPackage ./browser.nix { inherit channel enableNaCl; };
 
     plugins = callPackage ./plugins.nix {
       inherit enablePepperFlash enableWideVine;

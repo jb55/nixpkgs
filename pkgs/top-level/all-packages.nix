@@ -12807,10 +12807,11 @@ with pkgs;
 
   chromium = callPackage ../applications/networking/browsers/chromium {
     channel = "stable";
-    pulseSupport = config.pulseaudio or true;
+    enableNaCl = config.chromium.enableNaCl or false;
     enablePepperFlash = config.chromium.enablePepperFlash or false;
     enableWideVine = config.chromium.enableWideVine or false;
     gnome = gnome2;
+    pulseSupport = config.pulseaudio or true;
   };
 
   chronos = callPackage ../applications/networking/cluster/chronos { };
