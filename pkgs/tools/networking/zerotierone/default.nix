@@ -12,6 +12,7 @@ stdenv.mkDerivation rec {
   };
 
   preConfigure = ''
+      export ZT_DEBUG=1
       substituteInPlace ./make-linux.mk \
           --replace 'CC=$(shell which clang gcc cc 2>/dev/null | head -n 1)' "CC=${gcc}/bin/gcc";
       substituteInPlace ./make-linux.mk \
