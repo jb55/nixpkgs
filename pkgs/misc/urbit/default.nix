@@ -4,12 +4,12 @@
 stdenv.mkDerivation rec {
 
   name = "urbit-${version}";
-  version = "2015.09.26";
+  version = "2016.06.02";
 
   src = fetchgit {
     url = "https://github.com/urbit/urbit.git";
-    rev = "c9592664c797b2dd74f26886528656f8a7058640";
-    sha256 = "0sgrxnmpqh54mgar81wlb6gff8c0pc24p53xwxr448g5shvnzjx9";
+    rev = "566dcf211fd69df5c1af2a5874868a4f811ac04f";
+    sha256 = "1q30dc3lyvqr0243hsczcnga6svm7k0izw7yqbzj44pvdr4myz76";
   };
 
   buildInputs = with stdenv.lib; [
