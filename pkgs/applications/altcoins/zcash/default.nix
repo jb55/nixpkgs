@@ -8,13 +8,13 @@ with stdenv.lib;
 stdenv.mkDerivation rec{
 
   name = "zcash" + (toString (optional (!withGui) "d")) + "-" + version;
-  version = "v1.0.0-rc4";
+  version = "1.0.0";
 
   src = fetchFromGitHub {
-    owner = "zcash";
+    owner = "str4d";
     repo  = "zcash";
-    rev = version;
-    sha256 = "11r6frgmzykchgkmvyrs06zjskgxmd0wix4adjhpqlfrrxwyg6im";
+    rev = "ed03ab9bb1d2a70e0ceb8e66ede86cda0e714b9b";
+    sha256 = "072nlqf3gkfnx22kba37las2np45nqk1223gg9y0b7hizy3xwy5l";
   };
 
   enableParallelBuilding = true;
