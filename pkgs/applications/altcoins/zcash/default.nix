@@ -7,14 +7,14 @@ in
 with stdenv.lib;
 stdenv.mkDerivation rec{
 
-  name = "zcash" + (toString (optional (!withGui) "d")) + "-" + version;
+  name = "zclassic" + (toString (optional (!withGui) "d")) + "-" + version;
   version = "1.0.0";
 
   src = fetchFromGitHub {
-    owner = "str4d";
-    repo  = "zcash";
-    rev = "ed03ab9bb1d2a70e0ceb8e66ede86cda0e714b9b";
-    sha256 = "072nlqf3gkfnx22kba37las2np45nqk1223gg9y0b7hizy3xwy5l";
+    owner = "z-classic";
+    repo  = "zclassic";
+    rev = "03842b569d687b4e77f1a35a548c11d7661823ae";
+    sha256 = "06k9nasirll1g7gkm040c33am7aips5h1vh64j58ssxdzpyljndr";
   };
 
   enableParallelBuilding = true;

@@ -12073,14 +12073,14 @@ in
   } ) // (
     let callPackage = newScope { boost = boost162; openssl = openssl_1_1_0; };
     in {
-      zcash = callPackage ../applications/altcoins/zcash {
+      zclassic = callPackage ../applications/altcoins/zcash {
         withGui = false;
         inherit callPackage;
       };
     });
 
   bitcoin = altcoins.bitcoin;
-  zcash = altcoins.zcash;
+  zclassic = altcoins.zclassic;
   bitcoin-xt = altcoins.bitcoin-xt;
 
   go-ethereum = self.altcoins.go-ethereum;
