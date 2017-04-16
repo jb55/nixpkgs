@@ -108,14 +108,15 @@ in {
         chmod 711 /var/spool/smtpd
 
         mkdir -p /var/spool/smtpd/offline
-        chown root.smtpq /var/spool/smtpd/offline
-        chmod 770 /var/spool/smtpd/offline
+        chown root.root /var/spool/smtpd/offline
+        chmod 1777 /var/spool/smtpd/offline
 
         mkdir -p /var/spool/smtpd/purge
         chown smtpq.root /var/spool/smtpd/purge
         chmod 700 /var/spool/smtpd/purge
       '';
       serviceConfig.ExecStart = "${pkgs.opensmtpd}/sbin/smtpd -d -f ${conf} ${args}";
+      serviceConfig.Restart = "always";
       environment.OPENSMTPD_PROC_PATH = "${procEnv}/libexec/opensmtpd";
     };
 
