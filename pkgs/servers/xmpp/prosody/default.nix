@@ -1,6 +1,6 @@
 { stdenv, fetchurl, libidn, openssl, makeWrapper, fetchhg
 , lua5, luasocket, luasec, luaexpat, luafilesystem, luabitop, luaevent ? null, luazlib ? null
-, withLibevent ? true, withZlib ? true }:
+, withLibevent ? true, withZlib ? true, extraModules ? [] }:
 
 assert withLibevent -> luaevent != null;
 assert withZlib -> luazlib != null;
@@ -16,6 +16,9 @@ let
   getLuaCPath = lib : getPath lib "so";
   luaPath     = concatStringsSep ";" (map getLuaPath  libs);
   luaCPath    = concatStringsSep ";" (map getLuaCPath libs);
+  modLine = mod:
+    "cp $communityModules/mod_${mod}/mod_${mod}.lua $out/lib/prosody/modules/";
+
 in
 
 stdenv.mkDerivation rec {
@@ -28,9 +31,9 @@ stdenv.mkDerivation rec {
   };
 
   communityModules = fetchhg {
-    url = "http://prosody-modules.googlecode.com/hg/";
-    rev = "4b55110b0aa8";
-    sha256 = "0010x2rl9f9ihy2nwqan2jdlz25433srj2zna1xh10490mc28hij";
+    url = "https://hg.prosody.im/prosody-modules";
+    rev = "785465f8af3d";
+    sha256 = "0rf7l293qc0d31djqz27zq9sm869n1bwhmxg9ikg1w0lw7k3v5z5";
   };
 
   buildInputs = [ lua5 luasocket luasec luaexpat luabitop libidn openssl makeWrapper ]
@@ -44,7 +47,7 @@ stdenv.mkDerivation rec {
   ];
 
   postInstall = ''
-      cp $communityModules/mod_websocket/mod_websocket.lua $out/lib/prosody/modules/
+      ${concatStringsSep "\n" (map modLine extraModules)}
       wrapProgram $out/bin/prosody \
         --set LUA_PATH '${luaPath};' \
         --set LUA_CPATH '${luaCPath};'

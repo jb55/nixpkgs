@@ -4,6 +4,10 @@ with lib;
 
 let
 
+  prosody = pkgs.prosody.override {
+    extraModules = config.services.prosody.extraModules;
+  };
+
   cfg = config.services.prosody;
 
   sslOpts = { ... }: {
@@ -208,7 +212,7 @@ in
 
   config = mkIf cfg.enable {
 
-    environment.systemPackages = [ pkgs.prosody ];
+    environment.systemPackages = [ prosody ];
 
     environment.etc."prosody/prosody.cfg.lua".text = ''
 
@@ -272,7 +276,7 @@ in
       serviceConfig = {
         User = "prosody";
         PIDFile = "/var/lib/prosody/prosody.pid";
-        ExecStart = "${pkgs.prosody}/bin/prosodyctl start";
+        ExecStart = "${prosody}/bin/prosodyctl start";
       };
 
     };
