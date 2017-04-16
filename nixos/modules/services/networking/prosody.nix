@@ -214,8 +214,10 @@ in
 
       pidfile = "/var/lib/prosody/prosody.pid"
 
-
-      log = "*syslog"
+      log = {
+        debug = "/var/log/prosody/prosody.log"; -- Send debug and higher here
+        error = "*syslog"; -- Send error and higher to the syslog sink
+      }
 
       data_path = "/var/lib/prosody"
 
