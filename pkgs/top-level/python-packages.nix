@@ -30714,15 +30714,53 @@ EOF
   };
 
   trezor_agent = buildPythonPackage rec{
-    version = "0.7.0";
+    version = "git-2017-04-26";
     name = "trezor_agent-${version}";
 
-    src = pkgs.fetchurl {
-      url = "mirror://pypi/t/trezor_agent/${name}.tar.gz";
-      sha256 = "1x1gwih6w8kxhpgmcp0v1k7mpmfsqiikkjca291sd0v2if24x7q1";
+    src = pkgs.fetchFromGitHub {
+      repo = "trezor-agent";
+      owner = "romanz";
+      rev = "eb525e1b622437eec6358b4a614defb7d4e50e6e";
+      sha256 = "0b10di8svdp92syiq4hii5g3v0mh3lvq922rgycdgc603y0lm9i2";
     };
 
-    propagatedBuildInputs = with self; [ trezor ecdsa ed25519 mnemonic keepkey semver ];
+    propagatedBuildInputs = with self; [ trezor ecdsa ed25519 mnemonic keepkey semver requests ];
+
+    patches = [
+      (pkgs.writeText "trezor_agent-no-ledgerblue.patch" ''
+diff --git a/setup.py b/setup.py
+index ee526f8..a63b971 100644
+--- a/setup.py
++++ b/setup.py
+@@ -11,7 +11,7 @@ setup(
+     packages=['trezor_agent', 'trezor_agent.device', 'trezor_agent.gpg'],
+     install_requires=[
+         'ecdsa>=0.13', 'ed25519>=1.4', 'Cython>=0.23.4', 'protobuf>=3.0.0', 'semver>=2.2',
+-        'trezor>=0.7.6', 'keepkey>=0.7.3', 'ledgerblue>=0.1.8',
++        'trezor>=0.7.6', 'keepkey>=0.7.3',
+         'hidapi==0.7.99.post15'  # until https://github.com/keepkey/python-keepkey/pull/8 is merged
+     ],
+     platforms=['POSIX'],
+diff --git a/trezor_agent/device/__init__.py b/trezor_agent/device/__init__.py
+index 613c1cf..49aef34 100644
+--- a/trezor_agent/device/__init__.py
++++ b/trezor_agent/device/__init__.py
+@@ -4,7 +4,6 @@ import logging
+ 
+ from . import trezor
+ from . import keepkey
+-from . import ledger
+ from . import interface
+ 
+ log = logging.getLogger(__name__)
+@@ -12,7 +11,6 @@ log = logging.getLogger(__name__)
+ DEVICE_TYPES = [
+     trezor.Trezor,
+     keepkey.KeepKey,
+-    ledger.LedgerNanoS,
+ ]
+      '')
+    ];
 
     meta = {
       description = "Using Trezor as hardware SSH agent";
