@@ -164,9 +164,9 @@ in
       # Note: when changing the default, make it conditional on
       # ‘system.stateVersion’ to maintain compatibility with existing
       # systems!
-      mkDefault (if versionAtLeast config.system.stateVersion "17.09" then pkgs.postgresql96
+      mkDefault (if versionAtLeast config.system.stateVersion "17.09" then pkgs.postgresql95
             else if versionAtLeast config.system.stateVersion "16.03" then pkgs.postgresql95
-            else pkgs.postgresql94);
+            else pkgs.postgresql95);
 
     services.postgresql.dataDir =
       mkDefault (if versionAtLeast config.system.stateVersion "17.09" then "/var/lib/postgresql/${config.services.postgresql.package.psqlSchema}"
