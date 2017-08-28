@@ -6963,6 +6963,11 @@ in
 
   trezor_agent = with python3Packages; toPythonApplication trezor_agent;
 
+  trezor-agent = callPackage ../tools/security/trezor-agent {
+    inherit (python3Packages) trezor libagent buildPythonPackage;
+    inherit (qt5) qtbase;
+  };
+
   tthsum = callPackage ../applications/misc/tthsum { };
 
   chaps = callPackage ../tools/security/chaps { };
