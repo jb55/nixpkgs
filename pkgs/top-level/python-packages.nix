@@ -26874,11 +26874,11 @@ EOF
 
 
   unidecode = buildPythonPackage rec {
-    name = "Unidecode-0.04.18";
+    name = "Unidecode-0.04.21";
 
     src = pkgs.fetchurl {
       url = "mirror://pypi/U/Unidecode/${name}.tar.gz";
-      sha256 = "12hhblqy1ajvidm38im4171x4arg83pfmziyn53nizp29p3m14gi";
+      sha256 = "0lfhp9c5xrbpjvbpr12ji52g1lx04404bzzdg6pvabhzisw6l2i8";
     };
 
     LC_ALL="en_US.UTF-8";
