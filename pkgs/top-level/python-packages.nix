@@ -20373,7 +20373,6 @@ EOF
     };
   };
 
-
   unidecode = callPackage ../development/python-modules/unidecode {};
 
   pyusb = callPackage ../development/python-modules/pyusb {};
