@@ -15103,7 +15103,6 @@ EOF
     };
   };
 
-
   unidecode = callPackage ../development/python-modules/unidecode {};
 
   pyusb = callPackage ../development/python-modules/pyusb { libusb1 = pkgs.libusb1; };
