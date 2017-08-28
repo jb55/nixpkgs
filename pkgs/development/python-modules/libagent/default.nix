@@ -1,20 +1,20 @@
 { stdenv, fetchPypi, buildPythonPackage, ed25519, ecdsa
-, semver, keepkey, trezor, mnemonic, ledgerblue
+, semver, keepkey, trezor, mnemonic, ledgerblue, unidecode
 }:
 
 buildPythonPackage rec {
   name = "${pname}-${version}";
   pname = "libagent";
-  version = "0.9.1";
+  version = "0.9.2";
 
   src = fetchPypi{
     inherit pname version;
-    sha256 = "1g19lsid7lqw567w31fif89w088lzbgh27xpb1pshjk1gvags3bc";
+    sha256 = "07rici6zsk636383vpasmi2f0058d5560qjrdybgr4vn1b6drinn";
   };
 
   buildInputs = [
     ed25519 ecdsa semver keepkey
-    trezor mnemonic ledgerblue
+    trezor mnemonic ledgerblue unidecode
   ];
 
   meta = with stdenv.lib; {
