@@ -1083,6 +1083,8 @@ with pkgs;
 
   staccato = callPackage ../tools/text/staccato { };
 
+  stagit = callPackage ../development/tools/stagit { };
+
   syscall_limiter = callPackage ../os-specific/linux/syscall_limiter {};
 
   syslogng = callPackage ../tools/system/syslog-ng { };
