@@ -2073,6 +2073,8 @@ with pkgs;
 
   fdm = callPackage ../tools/networking/fdm {};
 
+  feedgnuplot = callPackage ../tools/graphics/feedgnuplot {};
+
   ferm = callPackage ../tools/networking/ferm { };
 
   fgallery = callPackage ../tools/graphics/fgallery {
