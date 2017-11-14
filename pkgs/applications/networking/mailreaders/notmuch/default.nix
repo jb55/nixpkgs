@@ -46,7 +46,6 @@ stdenv.mkDerivation rec {
         "{}" ";"
 
     for src in \
-      crypto.c \
       notmuch-config.c \
       emacs/notmuch-crypto.el
     do
