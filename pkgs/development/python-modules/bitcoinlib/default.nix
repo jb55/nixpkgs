@@ -20,6 +20,8 @@ in buildPythonPackage rec {
       "'${openssl.out}/lib/libssl.${ext}'"
   '';
 
+  propagatedBuildInputs = [ openssl ];
+
   meta = {
     homepage = src.meta.homepage;
     description = "Easy interface to the Bitcoin data structures and protocol";
