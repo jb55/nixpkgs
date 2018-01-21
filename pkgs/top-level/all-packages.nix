@@ -15012,6 +15012,8 @@ with pkgs;
 
   flac = callPackage ../applications/audio/flac { };
 
+  flameshot = libsForQt5.callPackage ../tools/misc/flameshot { };
+
   flashplayer = callPackage ../applications/networking/browsers/mozilla-plugins/flashplayer {
     debug = config.flashplayer.debug or false;
   };
