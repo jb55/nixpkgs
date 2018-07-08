@@ -1,6 +1,8 @@
 { lib, stdenv, fetchurl, python, pkgconfig, perl, libxslt, docbook_xsl
 , fetchpatch
-, docbook_xml_dtd_42, readline
+, fetchpgpkey
+, verifySignatureHook
+, docbook_xml_dtd_42, docbook_xml_dtd_45, readline, talloc
 , popt, iniparser, libbsd, libarchive, libiconv, gettext
 , krb5Full, zlib, openldap, cups, pam, avahi, acl, libaio, fam, libceph, glusterfs
 , gnutls, ncurses, libunwind, systemd, jansson, lmdb, gpgme
@@ -27,6 +29,20 @@ stdenv.mkDerivation rec {
     sha256 = "112yizx9cpjhi8c7mh9znqg0c9dkj3383hwr8dhgpykl3g2zv347";
   };
 
+  srcSignature = fetchurl {
+    url = "mirror://samba/pub/samba/stable/${name}.tar.asc";
+    sha256 = "0wpcbwbs1bj1y0amhn0z29v55f2hhmzc5p8n7sbwg9kaf0hc5mz5";
+  };
+  signatureUncompressed = true;
+
+  signaturePublicKey = fetchpgpkey {
+    url = https://download.samba.org/pub/samba/samba-pubkey.asc;
+    sha256 = "1fndhq0c34va34z137gvsl9gpwjv30b06makfx8cq5vrmgiax1x1";
+    fingerprint = "52FBC0B86D954B0843324CDC6F33915B6568B7EA";
+  };
+
+  nativeBuildInputs = [ verifySignatureHook ];
+
   outputs = [ "out" "dev" "man" ];
 
   patches =
@@ -35,6 +51,7 @@ stdenv.mkDerivation rec {
       ./4.x-no-persistent-install-dynconfig.patch
       ./4.x-fix-makeflags-parsing.patch
     ];
+
 
   buildInputs =
     [ python pkgconfig perl libxslt docbook_xsl docbook_xml_dtd_42 /*
