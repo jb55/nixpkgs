@@ -134,6 +134,10 @@ in
     { substitutions = { gnu_config = gnu-config;}; }
     ../build-support/setup-hooks/update-autotools-gnu-config-scripts.sh;
 
+  verifySignatureHook = makeSetupHook
+    { name = "verify-signature-hook"; deps = [ gnupg ]; }
+    ../build-support/setup-hooks/verify-signature.sh;
+
   gogUnpackHook = makeSetupHook {
     name = "gog-unpack-hook";
     deps = [ innoextract file-rename ]; }
