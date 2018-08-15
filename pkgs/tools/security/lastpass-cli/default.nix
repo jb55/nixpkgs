@@ -1,6 +1,13 @@
 { stdenv, lib, fetchFromGitHub, asciidoc, cmake, docbook_xsl, pkgconfig
-, bash-completion, openssl, curl, libxml2, libxslt }:
+, bash-completion, makeWrapper, openssl, curl, libxml2, libxslt, pinentry
+, pinentryPath ? null, guiSupport ? false }:
 
+let
+  pinpath =
+    if pinentryPath == null
+      then "${pinentry}/bin/pinentry"
+      else pinentryPath;
+in
 stdenv.mkDerivation rec {
   name = "lastpass-cli-${version}";
 
@@ -13,7 +20,7 @@ stdenv.mkDerivation rec {
     sha256 = "11drzmfdvb8ydw1dxaz9zz8rk0jjqmfv076vydz05qqvgx59s38h";
   };
 
-  nativeBuildInputs = [ asciidoc cmake docbook_xsl pkgconfig ];
+  nativeBuildInputs = [ asciidoc cmake docbook_xsl pkgconfig makeWrapper ];
 
   buildInputs = [
     bash-completion curl openssl libxml2 libxslt
@@ -26,6 +33,10 @@ stdenv.mkDerivation rec {
   ];
 
   installTargets = "install install-doc";
+
+  postInstall = if guiSupport then ''
+    wrapProgram $out/bin/lpass --set LPASS_PINENTRY "${pinpath}"
+  '' else null;
 
   meta = with lib; {
     description = "Stores, retrieves, generates, and synchronizes passwords securely";
