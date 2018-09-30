@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, texinfo, libXext, xextproto, libX11, xproto
+{ stdenv, fetchurl, texinfo, libXext, libX11, xorgproto
 , libXpm, libXt, libXcursor, alsaLib, cmake, zlib, libpng, libvorbis
 , libXxf86dga, libXxf86misc, xf86dgaproto, xf86miscproto
 , xf86vidmodeproto, libXxf86vm, openal, libGLU_combined }:
@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs = [
-    texinfo libXext xextproto libX11 xproto libXpm libXt libXcursor
+    texinfo libXext libX11 xorgproto libXpm libXt libXcursor
     alsaLib cmake zlib libpng libvorbis libXxf86dga libXxf86misc
     xf86dgaproto xf86miscproto xf86vidmodeproto libXxf86vm openal libGLU_combined
   ];
