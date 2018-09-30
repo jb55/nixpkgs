@@ -94,8 +94,6 @@ in {
     } // optionalAttrs cfg.enable { wantedBy = [ "default.target" ]; };
 
     environment.systemPackages = [ cfg.package editorScript desktopApplicationFile ];
-
-    environment.variables.EDITOR = mkIf cfg.defaultEditor (mkOverride 900 "${editorScript}/bin/emacseditor");
   };
 
   meta.doc = ./emacs.xml;
