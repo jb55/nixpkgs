@@ -188,6 +188,8 @@ in {
 
   aresponses = callPackage ../development/python-modules/aresponses { };
 
+  apply-defaults = callPackage ../development/python-modules/apply-defaults { };
+
   argon2_cffi = callPackage ../development/python-modules/argon2_cffi { };
 
   aria2p = callPackage ../development/python-modules/aria2p { inherit (pkgs) aria2; };
