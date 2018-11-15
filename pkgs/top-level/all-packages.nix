@@ -15661,6 +15661,7 @@ with pkgs;
 
   bitcoin = altcoins.bitcoin;
   clightning = altcoins.clightning;
+  spruned = altcoins.spruned;
 
   bitcoin-xt = altcoins.bitcoin-xt;
   cryptop = altcoins.cryptop;
