@@ -1509,6 +1509,8 @@ in {
 
   jsonrpc-websocket = callPackage ../development/python-modules/jsonrpc-websocket { };
 
+  jsonrpcserver = callPackage ../development/python-modules/jsonrpcserver {};
+
   onkyo-eiscp = callPackage ../development/python-modules/onkyo-eiscp { };
 
   pyunifi = callPackage ../development/python-modules/pyunifi { };
