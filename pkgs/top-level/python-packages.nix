@@ -2497,6 +2497,8 @@ in {
 
   jsonrpc-websocket = callPackage ../development/python-modules/jsonrpc-websocket { };
 
+  jsonrpcserver = callPackage ../development/python-modules/jsonrpcserver {};
+
   hepmc3 = toPythonModule (pkgs.hepmc3.override {
     inherit python;
   });
