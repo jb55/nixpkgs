@@ -2254,6 +2254,8 @@ in {
 
   jsonrpc-websocket = callPackage ../development/python-modules/jsonrpc-websocket { };
 
+  jsonrpcserver = callPackage ../development/python-modules/jsonrpcserver {};
+
   onkyo-eiscp = callPackage ../development/python-modules/onkyo-eiscp { };
 
   tablib = callPackage ../development/python-modules/tablib { };
