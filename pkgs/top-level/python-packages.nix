@@ -173,6 +173,8 @@ in {
 
   apprise = callPackage ../development/python-modules/apprise { };
 
+  apply-defaults = callPackage ../development/python-modules/apply-defaults { };
+
   argon2_cffi = callPackage ../development/python-modules/argon2_cffi { };
 
   asana = callPackage ../development/python-modules/asana { };
