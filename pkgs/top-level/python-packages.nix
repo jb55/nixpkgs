@@ -1649,6 +1649,8 @@ in {
 
   cffi = callPackage ../development/python-modules/cffi { };
 
+  pycoin = callPackage ../development/python-modules/pycoin { };
+
   pycollada = callPackage ../development/python-modules/pycollada { };
 
   pycontracts = callPackage ../development/python-modules/pycontracts { };
