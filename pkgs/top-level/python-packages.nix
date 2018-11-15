@@ -1959,6 +1959,8 @@ in {
 
   pyavm = callPackage ../development/python-modules/pyavm { };
 
+  pycoin = callPackage ../development/python-modules/pycoin { };
+
   pycollada = callPackage ../development/python-modules/pycollada { };
 
   pycontracts = callPackage ../development/python-modules/pycontracts { };
