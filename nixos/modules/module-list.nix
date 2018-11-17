@@ -563,6 +563,7 @@
   ./services/networking/bitlbee.nix
   ./services/networking/charybdis.nix
   ./services/networking/chrony.nix
+  ./services/networking/clightning.nix
   ./services/networking/cjdns.nix
   ./services/networking/cntlm.nix
   ./services/networking/connman.nix
