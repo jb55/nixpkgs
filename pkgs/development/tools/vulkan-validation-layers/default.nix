@@ -4,13 +4,13 @@
 
 stdenv.mkDerivation rec {
   name = "vulkan-validation-layers-${version}";
-  version = "1.1.85.0";
+  version = "1.1.97.0";
 
   src = fetchFromGitHub {
     owner = "KhronosGroup";
     repo = "Vulkan-ValidationLayers";
     rev = "sdk-${version}";
-    sha256 = "1y5ny587h62139fxnz760hsyv1dmw29m1a9vq096sn8qafh3jzbz";
+    sha256 = "1l8x9s9dhi978bwq08y4hcq4p9q2z22gs33f2ybwfr3gh7b6bbyy";
   };
 
   nativeBuildInputs = [ pkgconfig ];
