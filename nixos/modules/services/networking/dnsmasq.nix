@@ -9,10 +9,6 @@ let
 
   dnsmasqConf = pkgs.writeText "dnsmasq.conf" ''
     dhcp-leasefile=${stateDir}/dnsmasq.leases
-    ${optionalString cfg.resolveLocalQueries ''
-      conf-file=/etc/dnsmasq-conf.conf
-      resolv-file=/etc/dnsmasq-resolv.conf
-    ''}
     ${flip concatMapStrings cfg.servers (server: ''
       server=${server}
     '')}
