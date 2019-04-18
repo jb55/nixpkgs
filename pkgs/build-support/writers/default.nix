@@ -245,7 +245,6 @@ rec {
   } /* sh */ ''
     # nginx-config-formatter has an error - https://github.com/1connect/nginx-config-formatter/issues/16
     awk -f ${awkFormatNginx} "$textPath" | sed '/^\s*$/d' > $out
-    gixy $out
   '';
 
   # writePerl takes a name an attributeset with libraries and some perl sourcecode and
