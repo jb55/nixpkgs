@@ -19223,6 +19223,8 @@ in
 
   gopherclient = libsForQt5.callPackage ../applications/networking/gopher/gopherclient { };
 
+  gophernicus = callPackage ../applications/networking/gopher/gophernicus { };
+
   goxel = callPackage ../applications/graphics/goxel { };
 
   gpa = callPackage ../applications/misc/gpa { };
