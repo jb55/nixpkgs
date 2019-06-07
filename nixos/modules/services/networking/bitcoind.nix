@@ -179,15 +179,5 @@ in {
         MemoryDenyWriteExecute = "true";
       };
     };
-    users.users.${cfg.user} = {
-      name = cfg.user;
-      group = cfg.group;
-      description = "Bitcoin daemon user";
-      home = cfg.dataDir;
-      isSystemUser = true;
-    };
-    users.groups.${cfg.group} = {
-      name = cfg.group;
-    };
   };
 }
