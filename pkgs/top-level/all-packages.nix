@@ -18796,7 +18796,10 @@ in
   djview4 = pkgs.djview;
 
   dmenu = callPackage ../applications/misc/dmenu { };
+
   dmenu-wayland = callPackage ../applications/misc/dmenu/wayland.nix { };
+
+  dmenu2 = callPackage ../applications/misc/dmenu2 { };
 
   dmensamenu = callPackage ../applications/misc/dmensamenu {
     inherit (python3Packages) buildPythonApplication requests;
