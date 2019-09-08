@@ -5314,6 +5314,8 @@ in {
 
   pylibmc = callPackage ../development/python-modules/pylibmc {};
 
+  pylightning = callPackage ../development/python-modules/pylightning { };
+
   pymetar = callPackage ../development/python-modules/pymetar { };
 
   pypubsub = callPackage ../development/python-modules/pypubsub { };
