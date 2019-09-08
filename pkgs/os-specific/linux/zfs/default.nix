@@ -34,7 +34,7 @@ let
       name = "zfs-${configFile}-${version}${optionalString buildKernel "-${kernel.version}"}";
 
       src = fetchFromGitHub {
-        owner = "zfsonlinux";
+        owner = "jb55";
         repo = "zfs";
         inherit rev sha256;
       };
@@ -154,9 +154,9 @@ in {
     # incompatibleKernelVersion = "4.20";
 
     # this package should point to the latest release.
-    version = "0.8.1";
+    version = "0.8.2";
 
-    sha256 = "0wlbziijx08a9bmbyq4gfz4by9l5jrx44g18i99qnfm78k2q8a84";
+    sha256 = "1bccnyf1wza155rr01v54h01s8ddrxk83hp5r7cfh8m70jd5sf3a";
 
     extraPatches = [
       ./build-fixes-unstable.patch
@@ -168,9 +168,9 @@ in {
     # incompatibleKernelVersion = "4.19";
 
     # this package should point to a version / git revision compatible with the latest kernel release
-    version = "0.8.1";
+    version = "0.8.2";
 
-    sha256 = "0wlbziijx08a9bmbyq4gfz4by9l5jrx44g18i99qnfm78k2q8a84";
+    sha256 = "1bccnyf1wza155rr01v54h01s8ddrxk83hp5r7cfh8m70jd5sf3a";
     isUnstable = true;
 
     extraPatches = [
