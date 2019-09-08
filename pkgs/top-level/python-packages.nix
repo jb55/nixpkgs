@@ -4962,6 +4962,8 @@ in {
 
   pylibmc = callPackage ../development/python-modules/pylibmc {};
 
+  pylightning = callPackage ../development/python-modules/pylightning { };
+
   pymetar = callPackage ../development/python-modules/pymetar { };
 
   pysftp = callPackage ../development/python-modules/pysftp { };
