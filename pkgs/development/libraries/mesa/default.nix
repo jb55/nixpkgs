@@ -27,7 +27,7 @@
 with stdenv.lib;
 
 let
-  version = "19.1.5";
+  version = "19.2.0-rc3";
   branch  = head (splitString "." version);
 in
 
@@ -42,7 +42,7 @@ stdenv.mkDerivation {
       "ftp://ftp.freedesktop.org/pub/mesa/older-versions/${branch}.x/${version}/mesa-${version}.tar.xz"
       "https://mesa.freedesktop.org/archive/mesa-${version}.tar.xz"
     ];
-    sha256 = "1d3frncljickn5yi2ch1w2phwxhxpi6diyac3cbin9f76m7f2m3v";
+    sha256 = "1811i2cng0a8cd9q8x9lbbfcjgfp1zi88phjsn5s6inldn5qcy9n";
   };
 
   prePatch = "patchShebangs .";
@@ -165,9 +165,6 @@ stdenv.mkDerivation {
   postFixup = optionalString stdenv.isLinux ''
     # set the default search path for DRI drivers; used e.g. by X server
     substituteInPlace "$dev/lib/pkgconfig/dri.pc" --replace "$drivers" "${libglvnd.driverLink}"
-
-    # remove pkgconfig files for GL/EGL; they are provided by libGL.
-    rm $dev/lib/pkgconfig/{gl,egl}.pc
 
     # Update search path used by pkg-config
     for pc in $dev/lib/pkgconfig/{d3d,dri,xatracker}.pc; do
