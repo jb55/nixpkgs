@@ -15366,6 +15366,8 @@ in
     armTrustedFirmwareRK3399
     ;
 
+  amdgpu-navi10-firmware = callPackages ../os-specific/linux/firmware/amdgpu-navi10-firmware { };
+
   microcodeAmd = callPackage ../os-specific/linux/microcode/amd.nix { };
 
   microcodeIntel = callPackage ../os-specific/linux/microcode/intel.nix { };
