@@ -1,14 +1,15 @@
-{ stdenv, lib, fetchurl, pkgconfig, meson, ninja, libpthreadstubs, libpciaccess
+{ stdenv, lib, fetchgit, pkgconfig, meson, ninja, libpthreadstubs, libpciaccess
 , withValgrind ? valgrind-light.meta.available, valgrind-light
 }:
 
 stdenv.mkDerivation rec {
   pname = "libdrm";
-  version = "2.4.99";
+  version = "git-2019-08-30";
 
-  src = fetchurl {
-    url = "https://dri.freedesktop.org/${pname}/${pname}-${version}.tar.bz2";
-    sha256 = "0pnsw4bmajzdbz8pk4wswdmw93shhympf2q9alhbnpfjgsf57gsd";
+  src = fetchgit {
+    url = "https://gitlab.freedesktop.org/mesa/drm";
+    rev = "10cd9c3da848e131db0eb8e1f9cf88fe4d85e703";
+    sha256 = "1bz4iqa8j781hq5sf2nn9awyss87yljn6i6m7zrpzfzh8hasnlhn";
   };
 
   outputs = [ "out" "dev" "bin" ];
