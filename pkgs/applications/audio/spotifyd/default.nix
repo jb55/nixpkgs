@@ -1,10 +1,18 @@
-{ stdenv, fetchFromGitHub, rustPlatform, pkgconfig, openssl
+{ stdenv, fetchFromGitHub, rustPlatform, pkgconfig, openssl, dbus_libs
 , withALSA ? true, alsaLib ? null
 , withPulseAudio ? false, libpulseaudio ? null
 , withPortAudio ? false, portaudio ? null
 }:
 
-rustPlatform.buildRustPackage rec {
+let
+  features = ["dbus_mpris"
+              "dbus_keyring"
+             ]
+             ++ stdenv.lib.optional withALSA "alsa_backend"
+             ++ stdenv.lib.optional withPulseAudio "pulseaudio_backend"
+             ++ stdenv.lib.optional withPortAudio "portaudio_backend";
+
+in rustPlatform.buildRustPackage rec {
   pname = "spotifyd";
   version = "0.2.24";
 
@@ -19,13 +27,12 @@ rustPlatform.buildRustPackage rec {
 
   cargoBuildFlags = [
     "--no-default-features"
-    "--features"
-    "${stdenv.lib.optionalString withALSA "alsa_backend,"}${stdenv.lib.optionalString withPulseAudio "pulseaudio_backend,"}${stdenv.lib.optionalString withPortAudio "portaudio_backend,"}"
+    "--features" (stdenv.lib.concatStringsSep "," features)
   ];
 
   nativeBuildInputs = [ pkgconfig ];
 
-  buildInputs = [ openssl ]
+  buildInputs = [ openssl dbus_libs ]
     ++ stdenv.lib.optional withALSA alsaLib
     ++ stdenv.lib.optional withPulseAudio libpulseaudio
     ++ stdenv.lib.optional withPortAudio portaudio;
