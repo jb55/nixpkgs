@@ -72,5 +72,6 @@ in {
     };
 
     environment.systemPackages = [ pkgs.thelounge ];
+    environment.variables."THELOUNGE_HOME" = dataDir; # for CLI
   };
 }
