@@ -23,8 +23,10 @@ let
     for DIR in "${homeDir}" "${settingsDir}" "${fullSettings.download-dir}" "${fullSettings.incomplete-dir}"; do
       mkdir -p "$DIR"
     done
-    chmod 755 "${homeDir}"
-    chmod 700 "${settingsDir}"
+    chgrp -R nginx "${homeDir}"
+    chmod -R g+rw "${homeDir}"
+    find "${homeDir}" -type d -exec chmod 2775 {} \;
+    find "${homeDir}" -type f -exec chmod ug+rw {} \;
     chmod ${downloadDirPermissions} "${fullSettings.download-dir}" "${fullSettings.incomplete-dir}"
     cp -f ${settingsFile} ${settingsDir}/settings.json
   '';
