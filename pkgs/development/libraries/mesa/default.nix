@@ -27,7 +27,7 @@
 with stdenv.lib;
 
 let
-  version = "19.3.3";
+  version = "20.0.1";
   branch  = versions.major version;
 in
 
@@ -42,7 +42,7 @@ stdenv.mkDerivation {
       "ftp://ftp.freedesktop.org/pub/mesa/older-versions/${branch}.x/${version}/mesa-${version}.tar.xz"
       "https://mesa.freedesktop.org/archive/mesa-${version}.tar.xz"
     ];
-    sha256 = "02czqdqf64i3az5p1allnxycyjad3x35cj0hz0017mi5pc84ikl1";
+    sha256 = "6153ba3f8cb0524bbfc08e4db76b408126b2d1be8f789dffe28d1a0461eedde4";
   };
 
   prePatch = "patchShebangs .";
@@ -51,9 +51,8 @@ stdenv.mkDerivation {
   #  revive ./dricore-gallium.patch when it gets ported (from Ubuntu), as it saved
   #  ~35 MB in $drivers; watch https://launchpad.net/ubuntu/+source/mesa/+changelog
   patches = [
-    ./missing-includes.patch # dev_t needs sys/stat.h, time_t needs time.h, etc.-- fixes build w/musl
     ./opencl-install-dir.patch
-    ./disk_cache-include-dri-driver-path-in-cache-key.patch
+    # ./disk_cache-include-dri-driver-path-in-cache-key.patch
   ] # do not prefix user provided dri-drivers-path
     ++ lib.optional (lib.versionOlder version "19.0.0") (fetchpatch {
       url = "https://gitlab.freedesktop.org/mesa/mesa/commit/f6556ec7d126b31da37c08d7cb657250505e01a0.patch";
@@ -67,10 +66,10 @@ stdenv.mkDerivation {
       })
 
       # don't build libGLES*.so with GLVND
-      (fetchpatch {
-        url = "https://gitlab.freedesktop.org/mesa/mesa/commit/b01524fff05eef66e8cd24f1c5aacefed4209f03.patch";
-        sha256 = "1pszr6acx2xw469zq89n156p3bf3xf84qpbjw5fr1sj642lbyh7c";
-      })
+      # (fetchpatch {
+      #   url = "https://gitlab.freedesktop.org/mesa/mesa/commit/b01524fff05eef66e8cd24f1c5aacefed4209f03.patch";
+      #   sha256 = "1pszr6acx2xw469zq89n156p3bf3xf84qpbjw5fr1sj642lbyh7c";
+      # })
     ];
 
   outputs = [ "out" "dev" "drivers" "osmesa" ];
