@@ -1,4 +1,4 @@
-{ stdenv, lib, fetchurl, fetchpatch
+{ stdenv, lib, fetchurl, fetchpatch, fetchgit
 , pkgconfig, intltool, ninja, meson
 , file, flex, bison, expat, libdrm, xorg, wayland, wayland-protocols, openssl
 , llvmPackages, libffi, libomxil-bellagio, libva-minimal
@@ -35,15 +35,21 @@ stdenv.mkDerivation {
   pname = "mesa";
   inherit version;
 
-  src = fetchurl {
-    urls = [
-      "ftp://ftp.freedesktop.org/pub/mesa/mesa-${version}.tar.xz"
-      "ftp://ftp.freedesktop.org/pub/mesa/${version}/mesa-${version}.tar.xz"
-      "ftp://ftp.freedesktop.org/pub/mesa/older-versions/${branch}.x/${version}/mesa-${version}.tar.xz"
-      "https://mesa.freedesktop.org/archive/mesa-${version}.tar.xz"
-    ];
-    sha256 = "6153ba3f8cb0524bbfc08e4db76b408126b2d1be8f789dffe28d1a0461eedde4";
+  src = fetchgit {
+    url = "https://gitlab.freedesktop.org/mesa/mesa.git";
+    rev = "7b9f1b6ef755a07abcd396b42948ae6bf0a569a6";
+    sha256 = "0nrgwj03q5ih6m12ss7h7vdmrap2zf4hpdzfx0v3y2pxxmi1fwcv";
   };
+
+  # src = fetchurl {
+  #   urls = [
+  #     "ftp://ftp.freedesktop.org/pub/mesa/mesa-${version}.tar.xz"
+  #     "ftp://ftp.freedesktop.org/pub/mesa/${version}/mesa-${version}.tar.xz"
+  #     "ftp://ftp.freedesktop.org/pub/mesa/older-versions/${branch}.x/${version}/mesa-${version}.tar.xz"
+  #     "https://mesa.freedesktop.org/archive/mesa-${version}.tar.xz"
+  #   ];
+  #   sha256 = "6153ba3f8cb0524bbfc08e4db76b408126b2d1be8f789dffe28d1a0461eedde4";
+  # };
 
   prePatch = "patchShebangs .";
 
