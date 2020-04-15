@@ -179,6 +179,8 @@ in
 
   cpu-x = callPackage ../applications/misc/cpu-x { };
 
+  colorpicker = callPackage ../tools/misc/colorpicker { };
+
   dhallToNix = callPackage ../build-support/dhall-to-nix.nix {
     inherit dhall-nix;
   };
