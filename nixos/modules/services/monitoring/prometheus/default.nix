@@ -7,6 +7,8 @@ let
 
   workingDir = "/var/lib/" + cfg.stateDir;
 
+  dataDir = cfg.dataDir or workingDir + "/data/";
+
   # a wrapper that verifies that the configuration is valid
   promtoolCheck = what: name: file:
     if cfg.checkConfig then
@@ -44,7 +46,7 @@ let
     in promtoolCheck "check config" "prometheus.yml" yml;
 
   cmdlineArgs = cfg.extraFlags ++ [
-    "--storage.tsdb.path=${workingDir}/data/"
+    "--storage.tsdb.path=${dataDir}"
     "--config.file=${prometheusYml}"
     "--web.listen-address=${cfg.listenAddress}"
     "--alertmanager.notification-queue-capacity=${toString cfg.alertmanagerNotificationQueueCapacity}"
