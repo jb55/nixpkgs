@@ -241,18 +241,18 @@ in
       "d '${cfg.dataDir}' 0770 '${cfg.user}' '${cfg.group}' - -"
     ]) eachBitcoind);
 
-    users.users = mapAttrs' (bitcoindName: cfg: (
-      nameValuePair "bitcoind-${bitcoindName}" {
-      name = cfg.user;
-      group = cfg.group;
-      description = "Bitcoin daemon user";
-      home = cfg.dataDir;
-      isSystemUser = true;
-    })) eachBitcoind;
+    # users.users = mapAttrs' (bitcoindName: cfg: (
+    #   nameValuePair "bitcoind-${bitcoindName}" {
+    #   name = cfg.user;
+    #   group = cfg.group;
+    #   description = "Bitcoin daemon user";
+    #   home = cfg.dataDir;
+    #   isSystemUser = true;
+    # })) eachBitcoind;
 
-    users.groups = mapAttrs' (bitcoindName: cfg: (
-      nameValuePair "${cfg.group}" { }
-    )) eachBitcoind;
+    # users.groups = mapAttrs' (bitcoindName: cfg: (
+    #   nameValuePair "${cfg.group}" { }
+    # )) eachBitcoind;
 
   };
 
