@@ -123,6 +123,14 @@ in
         '';
       };
 
+      rcFile = mkOption {
+        type = types.path;
+        default = torRcFile;
+        description = ''
+          The tor rc file. Default to something reasonable.
+        '';
+      };
+
       enableGeoIP = mkOption {
         type = types.bool;
         default = true;
@@ -744,13 +752,13 @@ in
 
         wantedBy = [ "multi-user.target" ];
         after    = [ "tor-init.service" "network.target" ];
-        restartTriggers = [ torRcFile ];
+        restartTriggers = [ cfg.rcFile ];
 
         serviceConfig =
           { Type         = "simple";
             # Translated from the upstream contrib/dist/tor.service.in
-            ExecStartPre = "${pkgs.tor}/bin/tor -f ${torRcFile} --verify-config";
-            ExecStart    = "${pkgs.tor}/bin/tor -f ${torRcFile}";
+            ExecStartPre = "${pkgs.tor}/bin/tor -f ${cfg.rcFile} --verify-config";
+            ExecStart    = "${pkgs.tor}/bin/tor -f ${cfg.rcFile}";
             ExecReload   = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
             KillSignal   = "SIGINT";
             TimeoutSec   = 30;
