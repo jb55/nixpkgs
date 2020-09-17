@@ -8,6 +8,7 @@
 , libX11 ? null
 , libICE ? null
 , libSM ? null
+, withStatic ? false
 , x11Support ? (stdenv.isLinux || stdenv.isDarwin)
 , dbus
 }:
@@ -73,7 +74,8 @@ stdenv.mkDerivation rec {
     "--with-system-socket=/run/dbus/system_bus_socket"
     "--with-systemdsystemunitdir=${placeholder ''out''}/etc/systemd/system"
     "--with-systemduserunitdir=${placeholder ''out''}/etc/systemd/user"
-  ] ++ lib.optional (!x11Support) "--without-x";
+  ] ++ lib.optional (!x11Support) "--without-x"
+    ++ lib.optional withStatic "--enable-static";
 
   # Enable X11 autolaunch support in libdbus. This doesn't actually depend on X11
   # (it just execs dbus-launch in dbus.tools), contrary to what the configure script demands.
