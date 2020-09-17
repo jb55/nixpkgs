@@ -2,6 +2,7 @@
 , expat, gettext, intltool, glib, libiconv, writeShellScriptBin
 , gtk3Support ? false, gtk3 ? null
 , qt4 ? null
+, withStatic ? false
 , qt4Support ? false
 , withLibdnssdCompat ? false
 , python ? null
@@ -58,7 +59,8 @@ stdenv.mkDerivation rec {
       "--with-systemdsystemunitdir=no" ]
     ++ stdenv.lib.optional withLibdnssdCompat "--enable-compat-libdns_sd"
     # autoipd won't build on darwin
-    ++ stdenv.lib.optional stdenv.isDarwin "--disable-autoipd";
+    ++ stdenv.lib.optional stdenv.isDarwin "--disable-autoipd"
+    ++ stdenv.lib.optional withStatic "--enable-static";
 
   NIX_CFLAGS_COMPILE = "-DAVAHI_SERVICE_DIR=\"/etc/avahi/services\"";
 
