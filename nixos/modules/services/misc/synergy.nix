@@ -77,20 +77,20 @@ in
     (mkIf cfgC.enable {
       systemd.user.services.synergy-client = {
         after = [ "network.target" "graphical-session.target" ];
-        description = "Synergy client";
+        description = "Barrier client";
         wantedBy = optional cfgC.autoStart "graphical-session.target";
-        path = [ pkgs.synergy ];
-        serviceConfig.ExecStart = ''${pkgs.synergy}/bin/synergyc -f ${optionalString (cfgC.screenName != "") "-n ${cfgC.screenName}"} ${cfgC.serverAddress}'';
+        path = [ pkgs.barrier ];
+        serviceConfig.ExecStart = ''${pkgs.barrier}/bin/barrierc -f ${optionalString (cfgC.screenName != "") "-n ${cfgC.screenName}"} ${cfgC.serverAddress}'';
         serviceConfig.Restart = "on-failure";
       };
     })
     (mkIf cfgS.enable {
       systemd.user.services.synergy-server = {
         after = [ "network.target" "graphical-session.target" ];
-        description = "Synergy server";
+        description = "Barrier server";
         wantedBy = optional cfgS.autoStart "graphical-session.target";
-        path = [ pkgs.synergy ];
-        serviceConfig.ExecStart = ''${pkgs.synergy}/bin/synergys -c ${cfgS.configFile} -f ${optionalString (cfgS.address != "") "-a ${cfgS.address}"} ${optionalString (cfgS.screenName != "") "-n ${cfgS.screenName}" }'';
+        path = [ pkgs.barrier ];
+        serviceConfig.ExecStart = ''${pkgs.barrier}/bin/barriers -c ${cfgS.configFile} -f ${optionalString (cfgS.address != "") "-a ${cfgS.address}"} ${optionalString (cfgS.screenName != "") "-n ${cfgS.screenName}" }'';
         serviceConfig.Restart = "on-failure";
       };
     })
