@@ -63,7 +63,8 @@ let
   '' +
  lib.optionalString enableTextMode ''
     substituteInPlace $out/data/init/init.txt \
-      --replace '[PRINT_MODE:2D]' '[PRINT_MODE:TEXT]'
+      --replace '[PRINT_MODE:2D]' '[PRINT_MODE:TEXT]' \
+      --replace '[GRAPHICS:YES]' '[GRAPHICS:NO]'
   '' + ''
     substituteInPlace $out/data/init/init.txt \
       --replace '[INTRO:YES]' '[INTRO:${unBool enableIntro}]' \
