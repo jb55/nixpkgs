@@ -1,17 +1,17 @@
 { lib, stdenv, fetchFromGitHub, python3, nodejs, closurecompiler
 , jre, binaryen
-, llvmPackages_11
+, llvmPackages_12
 , symlinkJoin, makeWrapper
 , mkYarnModules
 }:
 
 stdenv.mkDerivation rec {
   pname = "emscripten";
-  version = "2.0.1";
+  version = "2.0.18";
 
   llvmEnv = symlinkJoin {
     name = "emscripten-llvm-${version}";
-    paths = with llvmPackages_11; [ clang-unwrapped lld llvm ];
+    paths = with llvmPackages_12; [ clang-unwrapped lld llvm ];
   };
 
   nodeModules = mkYarnModules {
