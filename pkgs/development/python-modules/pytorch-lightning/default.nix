@@ -6,10 +6,13 @@
 , fsspec
 , packaging
 , pytestCheckHook
+, pythonRelaxDepsHook
 , torch
 , pyyaml
 , tensorboard
 , torchmetrics
+, protobuf
+
 , tqdm }:
 
 buildPythonPackage rec {
@@ -25,6 +28,9 @@ buildPythonPackage rec {
     hash = "sha256-CgD5g5nhz2DI4gOQyPl8/Cq6wWHzL0ALgOB5SgUOgaI=";
   };
 
+  nativeBuildInputs = [ pythonRelaxDepsHook ];
+  pythonRelaxDeps = [ "protobuf" ];
+
   propagatedBuildInputs = [
     packaging
     future
@@ -33,6 +39,7 @@ buildPythonPackage rec {
     pyyaml
     tensorboard
     torchmetrics
+    protobuf
     tqdm
   ];
 
