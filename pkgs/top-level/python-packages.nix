@@ -1078,6 +1078,8 @@ self: super: with self; {
 
   babel = callPackage ../development/python-modules/babel { };
 
+  basicsr = callPackage ../development/python-modules/basicsr { };
+
   babelfish = callPackage ../development/python-modules/babelfish { };
 
   babelgladeextractor = callPackage ../development/python-modules/babelgladeextractor { };
