@@ -60,6 +60,7 @@ in
         # Don't phone home
         N8N_DIAGNOSTICS_ENABLED = "false";
         N8N_VERSION_NOTIFICATIONS_ENABLED = "false";
+        N8N_SECURE_COOKIE = "false";
       };
       serviceConfig = {
         Type = "simple";

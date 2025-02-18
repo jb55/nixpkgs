@@ -22,6 +22,15 @@ in
         description = "State directory of Open-WebUI.";
       };
 
+      url = lib.mkOption {
+        type = types.str;
+        default = "http://localhost:${toString cfg.port}";
+        example = "http://ai.myserver.com";
+        description = ''
+          The url which the Open-WebUI server HTTP interface uses for links
+        '';
+      };
+
       host = lib.mkOption {
         type = types.str;
         default = "127.0.0.1";
@@ -93,7 +102,7 @@ in
         DATA_DIR = ".";
         HF_HOME = ".";
         SENTENCE_TRANSFORMERS_HOME = ".";
-        WEBUI_URL = "http://localhost:${toString cfg.port}";
+        WEBUI_URL = cfg.url;
       } // cfg.environment;
 
       serviceConfig = {
